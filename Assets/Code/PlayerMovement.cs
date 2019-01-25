@@ -33,11 +33,11 @@ namespace ElMoro
             }
         }
 
-        private void Update()
+        private void FixedUpdate()
         {
             var movementDelta = InputManager.GetMovementDirection(playerIndex)
                 * Time.deltaTime * movementSpeed;
-            rigidbody.position += new Vector3(movementDelta.x, 0f, movementDelta.y);
+            rigidbody.velocity = new Vector3(movementDelta.x, 0f, movementDelta.y);
         }
     }
 }
