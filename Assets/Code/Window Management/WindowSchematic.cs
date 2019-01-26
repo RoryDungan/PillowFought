@@ -12,4 +12,5 @@ public class WindowSchematic : ScriptableObject
     public GameObject[] uiObjects;
     public int ScreenOrder;
     public string windowName;
+    public WindowTypes type;
 }

@@ -21,7 +21,7 @@ public class WindowContainer : MonoBehaviour
     /// </summary>
     public void ShowThisWindow(int siblingOrder)
     {
-        //transform.SetSiblingIndex(siblingOrder);
+        _anim = GetComponent<Animator>();
         _anim.ResetTrigger(DISMISS_WINDOW);
         _anim.SetTrigger(SHOW_WINDOW);
     }
