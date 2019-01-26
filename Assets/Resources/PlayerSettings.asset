@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e96eb94af1734fa0bf8e3199c09cdf0, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: 
-  pickupDistance: 1
+  pickupDistance: 2
   movementSpeed: 300
   rotationSpeed: 20
