@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 6114259af5c27d14e8c5e7e333d4789e
+guid: b56274ad5833137408ec7d95ab634b31
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: No Name
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Room
+    4300000: Window
   externalObjects: {}
   materials:
     importMaterials: 1
