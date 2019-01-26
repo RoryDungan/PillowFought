@@ -282,7 +282,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 12800000, guid: 2ba2cde811b954be59c0636f71486076, type: 3}
     m_FontSize: 112
-    m_FontStyle: 0
+    m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 174
@@ -339,6 +339,7 @@ GameObject:
   - component: {fileID: 3625150517372184745}
   - component: {fileID: 5111086186539123553}
   - component: {fileID: 6876495718714678408}
+  - component: {fileID: 790539275627923042}
   m_Layer: 5
   m_Name: MainMenuPanel
   m_TagString: Untagged
@@ -405,6 +406,20 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!114 &790539275627923042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4239645614603793919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d540694498b4f473c837c423b2803cf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playButton: {fileID: 8679908275149672969}
+  exitButton: {fileID: 2132969951553144243}
 --- !u!1 &4319157513900284921
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +552,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -100}
+  m_AnchoredPosition: {x: 0, y: -150}
   m_SizeDelta: {x: 1051, y: 509}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &837642862509451377
