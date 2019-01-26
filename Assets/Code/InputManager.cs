@@ -52,6 +52,16 @@ namespace ElMoro
                     movement.Normalize();
                     return movement;
                 }
+                case 1:
+                {
+                    // Joy-con (L)
+                    var x = Input.GetAxis("Horizontal 1");
+                    var y = Input.GetAxis("Vertical 1");
+
+                    var movement = new Vector2(x, y);
+                    movement.Normalize();
+                    return movement;
+                }
                 default:
                     throw new NotImplementedException(
                         "Multiple controller support not implemented"
@@ -71,10 +81,11 @@ namespace ElMoro
                 case 0:
                     return Input.GetButtonDown("B 0") || Input.GetKeyDown(KeyCode.Space);
 
+                case 1:
+                    return Input.GetButtonDown("B 1");
+
                 default:
-                    throw new NotImplementedException(
-                        "Multiple controller support not implemented"
-                    );
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
             }
         }
 
@@ -90,10 +101,11 @@ namespace ElMoro
                 case 0:
                     return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.F);
 
+                case 1:
+                    return Input.GetButtonDown("A 1");
+
                 default:
-                    throw new NotImplementedException(
-                        "Multiple controller support not implemented"
-                    );
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
             }
         }
     }
