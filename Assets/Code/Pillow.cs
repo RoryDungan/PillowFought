@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace ElMoro
@@ -31,6 +32,7 @@ namespace ElMoro
     public class Pillow : MonoBehaviour, IPillow
     {
         private new Rigidbody rigidbody;
+        private new Collider collider;
 
         public Vector3 Position => transform.position;
 
@@ -41,6 +43,54 @@ namespace ElMoro
             {
                 throw new Exception("Could not find Rigidbody component on Pillow.");
             }
+
+            collider = GetComponent<Collider>();
+            if (collider == null)
+            {
+                throw new Exception("Could not find Collider component on Pillow.");
+            }
+        }
+
+        private IEnumerator SmoothLerpToPositionLocal(
+            Vector3 targetPos,
+            Quaternion targetRot,
+            float duration
+        )
+        {
+            var startingPos = transform.localPosition;
+            var startingRot = transform.localRotation;
+            var startTime = Time.time;
+            // Disable collider while we are picking the object up so it doesn't
+            // hit the player.
+            collider.enabled = false;
+            while (Time.time <= startTime + duration)
+            {
+                // Cancel if detached
+                if (transform.parent == null)
+                {
+                    break;
+                }
+
+                // Move towards target position
+                var currentPos = Mathf.SmoothStep(
+                    0f,
+                    1f,
+                    Mathf.Clamp01((Time.time - startTime) / duration)
+                );
+                transform.localPosition = Vector3.Lerp(
+                    startingPos,
+                    targetPos,
+                    currentPos
+                );
+                transform.localRotation = Quaternion.Lerp(
+                    startingRot,
+                    targetRot,
+                    currentPos
+                );
+                yield return new WaitForEndOfFrame();
+            }
+            collider.enabled = true;
+            yield return null;
         }
 
         public void Drop()
@@ -53,6 +103,11 @@ namespace ElMoro
         {
             transform.SetParent(newParent);
             rigidbody.isKinematic = true;
+            StartCoroutine(SmoothLerpToPositionLocal(
+                Vector3.zero,
+                Quaternion.identity,
+                0.2f
+            ));
         }
 
         public void Throw(Vector3 direction)
