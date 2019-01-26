@@ -7,8 +7,6 @@ TagManager:
   - asteroid
   - ship
   - Pillow
-  - Player1
-  - Player2
   - Floor
   layers:
   - Default
@@ -20,8 +18,8 @@ TagManager:
   - 
   - 
   - PostProcessing
-  - Player1
-  - Player2
+  - 
+  - 
   - 
   - 
   - 
