@@ -31,7 +31,14 @@ namespace ElMoro {
 
 		private Dictionary<string, AudioData> audioLibrary;
 
-		public AudioManager(IAudioSettings settings) {
+		// public AudioManager(IAudioSettings settings) {
+		// 	CreateAudioSources(settings);
+		// }
+		
+		[Inject]
+		private IAudioSettings settings;
+
+		public void Start() {
 			CreateAudioSources(settings);
 		}
 
@@ -47,6 +54,7 @@ namespace ElMoro {
 		}
 
 		private void CreateAudioSources(IAudioSettings settings) {
+			Debug.Log("reate");
 			AudioData[] audioData = settings.Audio;
 			audioLibrary = new Dictionary<string, AudioData>();
 

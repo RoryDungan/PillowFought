@@ -37,6 +37,7 @@ namespace ElMoro
 
 			Container.Bind<IAudioManager>()
 				.To<AudioManager>()
+                .FromComponentOn(GameObject.Find("AudioManager"))
 				.AsSingle();
 
 			Container.Bind<IAudioSettings>()
