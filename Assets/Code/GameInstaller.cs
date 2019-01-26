@@ -27,6 +27,25 @@ namespace ElMoro
                 .FromComponentOn(GameObject.FindGameObjectWithTag("MainCamera"))
                 .AsSingle();
 
+			Container.Bind<IGameManager>()
+				.To<GameManager>()
+				.AsSingle();
+
+			Container.Bind<IGameManagerSettings>()
+				.To<GameManagerSettings>()
+				.FromResource("GameManagerSettings")
+				.AsSingle();
+
+			Container.Bind<IAudioManager>()
+				.To<AudioManager>()
+                .FromComponentOn(GameObject.Find("AudioManager"))
+				.AsSingle();
+
+			Container.Bind<IAudioSettings>()
+				.To<AudioSettings>()
+				.FromResource("AudioSettings")
+				.AsSingle();
+
             Container.BindFactory<IPlayer, IPlayerMovement, PlayerMovement.Factory>()
                 .To<PlayerMovement>();
             Container.BindFactory<IPlayer, IPillowCarrier, PillowCarrier.Factory>()

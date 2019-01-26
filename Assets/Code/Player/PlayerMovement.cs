@@ -48,8 +48,16 @@ namespace ElMoro.Player
                 0f,
                 movementDirection.y
             ).normalized;
+
+            if (inputDirection == Vector3.zero)
+            {
+                player.SetWalkAnim(false);
+                return;
+            }
+
             var cameraRotation = Quaternion.Euler(0f, mainCamera.RotationEuler.y, 0f);
 
+            player.SetWalkAnim(true);
             player.SetVelocity((cameraRotation * inputDirection)
                 * Time.fixedDeltaTime
                 * playerSettings.MovementSpeed);

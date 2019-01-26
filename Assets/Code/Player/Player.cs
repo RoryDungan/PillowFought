@@ -17,6 +17,8 @@ namespace ElMoro.Player
         void SetRotation(Quaternion rotation);
 
         void SetState(PlayerState newState);
+
+        void SetWalkAnim(bool walking);
     }
 
     public class Player : MonoBehaviour, IPlayer
@@ -29,6 +31,7 @@ namespace ElMoro.Player
 
         private new Rigidbody rigidbody;
         private Transform grabTarget;
+        private PlayerAnimationController animController;
 
         public Vector3 Position => transform.position;
         public Vector3 Forward => transform.forward;
@@ -51,6 +54,12 @@ namespace ElMoro.Player
             if (grabTarget == null)
             {
                 throw new Exception("PillowCarrier requires a child named GrabTarget but it could not be found!");
+            }
+
+            animController = GetComponent<PlayerAnimationController>();
+            if (animController == null)
+            {
+                throw new Exception("Can'd find the Animation Controller");
             }
 
             SetState(walkStateFactory.Create(this));
@@ -81,5 +90,7 @@ namespace ElMoro.Player
         public void SetVelocity(Vector3 value) => rigidbody.velocity = value;
 
         public void SetRotation(Quaternion value) => rigidbody.rotation = value;
+
+        public void SetWalkAnim(bool walking) => animController.Walk(walking);
     }
 }
