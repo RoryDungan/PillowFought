@@ -117,6 +117,15 @@ MonoBehaviour:
     pitchRange: {x: 1, y: 1}
     spatialBlend: 0
     isLooping: 1
+  - name: Step
+    audioClip: {fileID: 8300000, guid: 6026f2a7680a30847b6e5a0b70fb1b51, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 0.35, y: 0.4}
+    pitchRange: {x: 0.8, y: 0.85}
+    spatialBlend: 1
+    isLooping: 0
 --- !u!114 &8680381213104942908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,4 +138,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb9c89263820f848b7b437f72706746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testString: Pickup
+  testString: Step
