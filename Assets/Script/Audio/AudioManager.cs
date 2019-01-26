@@ -54,7 +54,6 @@ namespace ElMoro {
 		}
 
 		private void CreateAudioSources(IAudioSettings settings) {
-			Debug.Log("reate");
 			AudioData[] audioData = settings.Audio;
 			audioLibrary = new Dictionary<string, AudioData>();
 
@@ -74,9 +73,7 @@ namespace ElMoro {
 
 				audioData[audioIndex].source = newSource;
 
-				Debug.Log(audioData[audioIndex].name);
 				audioLibrary.Add(audioData[audioIndex].name, audioData[audioIndex]);
-				Debug.Log(audioLibrary.Count);
 			}
 		}
 
