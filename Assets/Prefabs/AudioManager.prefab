@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7d9a1d617b5bed43a4451e6dbecda2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioDistanceRange: {x: 15, y: 28}
   audioData:
   - name: Pickup
     audioClip: {fileID: 8300000, guid: eb7fd01cfaf2f2748927e860beef805e, type: 3}

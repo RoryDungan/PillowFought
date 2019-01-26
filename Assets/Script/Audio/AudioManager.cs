@@ -6,6 +6,9 @@ using UnityEngine.Audio;
 public class AudioManager : MonoBehaviour {
 	public static AudioManager instance;
 
+	[Header("Audio Settings")]
+	public Vector2 audioDistanceRange = new Vector2(15.0f, 35.0f);
+
 	[Header("AudioData References")]
 	public AudioData[] audioData;
 
@@ -34,6 +37,10 @@ public class AudioManager : MonoBehaviour {
 			newSource.clip = audioData[audioIndex].audioClip;
 			newSource.spatialBlend = audioData[audioIndex].spatialBlend;
 			newSource.loop = audioData[audioIndex].isLooping;
+
+			newSource.rolloffMode = AudioRolloffMode.Linear;
+			newSource.minDistance = audioDistanceRange.x;
+			newSource.maxDistance = audioDistanceRange.y;
 
 			audioData[audioIndex].source = newSource;
 
