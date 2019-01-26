@@ -53,6 +53,11 @@ namespace ElMoro
                     currentPillow = null;
                 }
             }
+
+            if (InputManager.GetThrowButtonDown(playerIndex) && currentPillow != null)
+            {
+                Debug.Log("Throw!");
+            }
         }
 
         /// <summary>

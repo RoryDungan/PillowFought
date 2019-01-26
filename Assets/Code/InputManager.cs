@@ -21,6 +21,8 @@ namespace ElMoro
         /// specified player index.
         /// </summary>
         bool GetGrabButtonDown(int playerIndex);
+
+        bool GetThrowButtonDown(int playerIndex);
     }
 
     public class InputManager : IInputManager
@@ -67,7 +69,26 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.Space);
+                    return Input.GetButtonDown("B 0") || Input.GetKeyDown(KeyCode.Space);
+
+                default:
+                    throw new NotImplementedException(
+                        "Multiple controller support not implemented"
+                    );
+            }
+        }
+
+        public bool GetThrowButtonDown(int playerIndex)
+        {
+            if (playerIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            }
+
+            switch (playerIndex)
+            {
+                case 0:
+                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.F);
 
                 default:
                     throw new NotImplementedException(
