@@ -21,6 +21,8 @@ namespace ElMoro
         /// specified player index.
         /// </summary>
         bool GetGrabButtonDown(int playerIndex);
+
+        bool GetThrowButtonDown(int playerIndex);
     }
 
     public class InputManager : IInputManager
@@ -50,6 +52,16 @@ namespace ElMoro
                     movement.Normalize();
                     return movement;
                 }
+                case 1:
+                {
+                    // Joy-con (L)
+                    var x = Input.GetAxis("Horizontal 1");
+                    var y = Input.GetAxis("Vertical 1");
+
+                    var movement = new Vector2(x, y);
+                    movement.Normalize();
+                    return movement;
+                }
                 default:
                     throw new NotImplementedException(
                         "Multiple controller support not implemented"
@@ -67,12 +79,33 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.Space);
+                    return Input.GetButtonDown("B 0") || Input.GetKeyDown(KeyCode.Space);
+
+                case 1:
+                    return Input.GetButtonDown("B 1");
 
                 default:
-                    throw new NotImplementedException(
-                        "Multiple controller support not implemented"
-                    );
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            }
+        }
+
+        public bool GetThrowButtonDown(int playerIndex)
+        {
+            if (playerIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            }
+
+            switch (playerIndex)
+            {
+                case 0:
+                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.F);
+
+                case 1:
+                    return Input.GetButtonDown("A 1");
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
             }
         }
     }
