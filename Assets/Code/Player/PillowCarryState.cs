@@ -45,11 +45,13 @@ namespace ElMoro.Player
             {
                 pillow.Drop();
                 player.SetState(walkStateFactory.Create(player));
+                player.SetPutDownAnim();
             }
 
             if (inputManager.GetThrowButtonDown(player.ControllerIndex))
             {
                 player.SetState(throwStateFactory.Create(player, pillow));
+                player.SetThrowAnim();
             }
         }
 

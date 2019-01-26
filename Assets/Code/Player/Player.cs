@@ -20,6 +20,12 @@ namespace ElMoro.Player
 
         void SetWalkAnim(bool walking);
 
+        void SetPickupAnim();
+
+        void SetPutDownAnim();
+
+        void SetThrowAnim();
+
         int Layer { get; }
 
         void Die();
@@ -97,6 +103,12 @@ namespace ElMoro.Player
         public void SetRotation(Quaternion value) => rigidbody.rotation = value;
 
         public void SetWalkAnim(bool walking) => animController.Walk(walking);
+
+        public void SetPickupAnim() => animController.Pickup();
+
+        public void SetPutDownAnim() => animController.PutDown();
+
+        public void SetThrowAnim() => animController.Throw();
 
         public void Die()
         {

@@ -40,6 +40,7 @@ namespace ElMoro.Player
                 if (pillow != null)
                 {
                     player.SetState(pillowCarryStateFactory.Create(player, pillow));
+                    player.SetPickupAnim();
                 }
             }
         }
