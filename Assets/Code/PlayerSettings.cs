@@ -18,6 +18,16 @@ namespace ElMoro
         /// How quickly the player should rotate to face the direction of movement.
         /// </summary>
         float RotationSpeed { get; }
+
+        /// <summary>
+        /// The initial throw force.
+        /// </summary>
+        float MinThrowForce { get; }
+
+        /// <summary>
+        /// Throw force after charging up.
+        /// </summary>
+        float MaxThrowForce { get; }
     }
 
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Pillow Fought/Player settings")]
@@ -40,5 +50,15 @@ namespace ElMoro
         private float rotationSpeed = 20f;
 
         public float RotationSpeed => rotationSpeed;
+
+        [SerializeField]
+        private float minThrowForce = 10f;
+
+        public float MinThrowForce => minThrowForce;
+
+        [SerializeField]
+        private float maxThrowForce = 30f;
+
+        public float MaxThrowForce => maxThrowForce;
     }
 }

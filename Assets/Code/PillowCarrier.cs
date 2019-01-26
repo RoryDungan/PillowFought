@@ -56,7 +56,7 @@ namespace ElMoro
 
             if (InputManager.GetThrowButtonDown(playerIndex) && currentPillow != null)
             {
-                Debug.Log("Throw!");
+                currentPillow.Throw(transform.forward * PlayerSettings.MinThrowForce);
             }
         }
 
