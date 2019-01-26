@@ -96,5 +96,10 @@ namespace ElMoro
                 )
             );
         }
+
+		public void Die() {
+			//Tell GameManager to end round;
+			Debug.Log(name + " died.");
+		}
     }
 }

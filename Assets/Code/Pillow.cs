@@ -25,7 +25,7 @@ namespace ElMoro
         /// Throw the pillow in the specified direction. The pillow must be
         /// being carried.
         /// </summary>
-        void Throw(Vector3 direction);
+        void Throw(Vector3 direction, LayerMask layer);
 
         Vector3 Position { get; }
     }
@@ -39,6 +39,9 @@ namespace ElMoro
 
         [Inject]
         private IPillowSettings PillowSettings { get; set; }
+
+		[Inject]
+		private IAudioManager audioManager;
 
         private void Awake()
         {
@@ -114,10 +117,29 @@ namespace ElMoro
             ));
         }
 
-        public void Throw(Vector3 direction)
+        public void Throw(Vector3 direction, LayerMask layer)
         {
             Drop();
             rigidbody.AddForce(direction, ForceMode.Impulse);
+			gameObject.layer = layer;
         }
+
+		private void OnCollisionEnter (Collision coll)
+		{
+			Collider other = coll.collider;
+			LayerMask playersLayer = LayerMask.GetMask("Player1", "Player2");
+
+			if (LayerMask.LayerToName(gameObject.layer) != "Default") {
+				if (other.CompareTag("Floor")) {
+					gameObject.layer = LayerMask.NameToLayer("Default");
+				} else if (((1<<other.gameObject.layer) & playersLayer) != 0) {
+					audioManager.Play("Hit Thud");
+					if (!other.CompareTag("Pillow")) {
+						audioManager.Play("Hit Squeak");
+						other.GetComponent<PlayerMovement>().Die();
+					}
+				}
+			}
+		}
     }
 }
