@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Zenject;
+using ElMoro.Player;
 
 namespace ElMoro
 {
@@ -27,6 +28,11 @@ namespace ElMoro
         /// </summary>
         void Throw(Vector3 direction, LayerMask layer);
 
+        /// <summary>
+        /// Explode this pillow in a burst of feathers.
+        /// </summary>
+        void Explode();
+
         Vector3 Position { get; }
     }
 
@@ -35,13 +41,15 @@ namespace ElMoro
         private new Rigidbody rigidbody;
         private new Collider collider;
 
+        private const string PillowTag = "Pillow";
+
         public Vector3 Position => transform.position;
 
         [Inject]
         private IPillowSettings PillowSettings { get; set; }
 
-		[Inject]
-		private IAudioManager audioManager;
+        [Inject]
+        private IAudioManager audioManager;
 
         private void Awake()
         {
@@ -121,25 +129,41 @@ namespace ElMoro
         {
             Drop();
             rigidbody.AddForce(direction, ForceMode.Impulse);
-			gameObject.layer = layer;
+            gameObject.layer = layer;
         }
 
-		private void OnCollisionEnter (Collision coll)
-		{
-			Collider other = coll.collider;
-			LayerMask playersLayer = LayerMask.GetMask("Player1", "Player2");
+        public void Explode()
+        {
+            Debug.Log("TODO: pillow explode");
+        }
 
-			if (LayerMask.LayerToName(gameObject.layer) != "Default") {
-				if (other.CompareTag("Floor")) {
-					gameObject.layer = LayerMask.NameToLayer("Default");
-				} else if (((1<<other.gameObject.layer) & playersLayer) != 0) {
-					audioManager.Play("Hit Thud");
-					if (!other.CompareTag("Pillow")) {
-						audioManager.Play("Hit Squeak");
-						other.GetComponent<Player.Player>().Die();
-					}
-				}
-			}
-		}
+        private void OnCollisionEnter(Collision collision)
+        {
+            var otherCollider = collision.collider;
+            if (otherCollider.CompareTag(PillowTag))
+            {
+                var otherPillow = otherCollider.GetComponent<IPillow>();
+                if (otherPillow == null)
+                {
+                    throw new Exception("Collided with object with Pillow tag but no Pillow component!");
+                }
+
+                audioManager.Play("Hit Squeak");
+                otherPillow.Explode();
+            }
+
+            if (otherCollider.CompareTag(Player.Player.PlayerTag))
+            {
+                var player = otherCollider.GetComponent<Player.Player>();
+                if (player == null)
+                {
+                    throw new Exception("Collided with object with Player tag but no Player component!");
+                }
+                audioManager.Play("Hit Thud");
+                player.Die();
+            }
+
+            Explode();
+        }
     }
 }

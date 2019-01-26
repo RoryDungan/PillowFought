@@ -27,6 +27,8 @@ namespace ElMoro.Player
 
     public class Player : MonoBehaviour, IPlayer
     {
+        public const string PlayerTag = "Player";
+
         [SerializeField]
         [Tooltip("Which controller should control this player.")]
         private int index;
