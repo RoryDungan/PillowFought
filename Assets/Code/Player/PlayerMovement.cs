@@ -87,5 +87,7 @@ namespace ElMoro.Player
                 )
             ));
         }
+
+        public class Factory : PlaceholderFactory<IPlayer, IPlayerMovement>{}
     }
 }

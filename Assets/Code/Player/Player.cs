@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Zenject;
 
 namespace ElMoro.Player
 {
@@ -7,6 +8,7 @@ namespace ElMoro.Player
     {
         Vector3 Position { get; }
         Vector3 Forward { get; }
+        Transform GrabTarget { get; }
 
         int ControllerIndex { get; }
 
@@ -30,8 +32,12 @@ namespace ElMoro.Player
 
         public Vector3 Position => transform.position;
         public Vector3 Forward => transform.forward;
+        public Transform GrabTarget => grabTarget;
 
         private PlayerState currentState;
+
+        [Inject]
+        private WalkState.Factory walkStateFactory;
 
         private void Awake()
         {
@@ -46,6 +52,8 @@ namespace ElMoro.Player
             {
                 throw new Exception("PillowCarrier requires a child named GrabTarget but it could not be found!");
             }
+
+            SetState(walkStateFactory.Create(this));
         }
 
         private void Update()
@@ -60,7 +68,14 @@ namespace ElMoro.Player
 
         public void SetState(PlayerState newState)
         {
-            // TODO
+            if (newState == null)
+            {
+                throw new ArgumentNullException(nameof(newState));
+            }
+
+            currentState?.Dispose();
+            currentState = newState;
+            currentState.Start();
         }
 
         public void SetVelocity(Vector3 value) => rigidbody.velocity = value;

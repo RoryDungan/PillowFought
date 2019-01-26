@@ -52,5 +52,7 @@ namespace ElMoro
                 .OrderBy(p => (p.Position - player.Position).sqrMagnitude)
                 .FirstOrDefault();
         }
+
+        public class Factory : PlaceholderFactory<IPlayer, IPillowCarrier>{}
     }
 }

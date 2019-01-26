@@ -2,26 +2,37 @@ using Zenject;
 
 namespace ElMoro.Player
 {
-    public class WalkState : PlayerState
+    public class PillowCarryState : PlayerState
     {
         private readonly IPlayer player;
+        private readonly IPillow pillow;
         private readonly IPlayerMovement playerMovement;
         private readonly IInputManager inputManager;
-        private readonly IPillowCarrier pillowCarrier;
-        private readonly PillowCarryState.Factory pillowCarryStateFactory;
+        private readonly WalkState.Factory walkStateFactory;
 
-        public WalkState(
+        public PillowCarryState(
             IPlayer player,
+            IPillow pillow,
             PlayerMovement.Factory playerMovementFactory,
-            PillowCarrier.Factory pillowCarrierFactory,
             IInputManager inputManager,
-            PillowCarryState.Factory pillowCarryStateFactory)
+            WalkState.Factory walkStateFactory
+        )
         {
             this.player = player;
+            this.pillow = pillow;
             this.playerMovement = playerMovementFactory.Create(player);
             this.inputManager = inputManager;
-            this.pillowCarrier = pillowCarrierFactory.Create(player);
-            this.pillowCarryStateFactory = pillowCarryStateFactory;
+            this.walkStateFactory = walkStateFactory;
+        }
+
+        public override void Start()
+        {
+            pillow.Grab(player.GrabTarget);
+        }
+
+        public override void Dispose()
+        {
+            pillow.Drop();
         }
 
         public override void FixedUpdate()
@@ -34,16 +45,10 @@ namespace ElMoro.Player
         {
             if (inputManager.GetGrabButtonDown(player.ControllerIndex))
             {
-                var pillow = pillowCarrier.AttemptGrab();
-
-                // TODO: user factory
-                if (pillow != null)
-                {
-                    player.SetState(pillowCarryStateFactory.Create(player, pillow));
-                }
+                player.SetState(walkStateFactory.Create(player));
             }
         }
 
-        public class Factory : PlaceholderFactory<IPlayer, WalkState>{}
+        public class Factory : PlaceholderFactory<IPlayer, IPillow, PillowCarryState>{}
     }
 }
