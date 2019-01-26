@@ -70,7 +70,6 @@ namespace ElMoro
                 new Ray(rayStart, rayEnd),
                 PlayerSettings.PickupDistance
             );
-            Debug.Log("Hits: [ " + string.Join(", ", hits.Select(h => h.transform.gameObject.name).ToArray()) + " ]");
 
             return hits.Select(h => h.transform)
                 .Where(t => t.CompareTag(PillowTag))
