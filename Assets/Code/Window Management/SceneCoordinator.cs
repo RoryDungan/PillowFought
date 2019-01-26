@@ -20,14 +20,4 @@ public class SceneCoordinator : MonoBehaviour
         startWindowInstance = WindowCreator.instance.CreateWindow(startWindow);
 
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-            //startWindowInstance.GetComponent<WindowContainer>().CloseWindow();
-            //finishWindowInstance = WindowCreator.instance.CreateWindow(finishWindow);
-        //}
-    }
 }

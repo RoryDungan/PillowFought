@@ -16,6 +16,11 @@ namespace ElMoro
                 .FromResource("PlayerSettings")
                 .AsSingle();
 
+            Container.Bind<IPillowSettings>()
+                .To<PillowSettings>()
+                .FromResource("PillowSettings")
+                .AsSingle();
+
             Container.Bind<IMainCamera>()
                 .To<MainCamera>()
                 .FromComponentOn(GameObject.FindGameObjectWithTag("MainCamera"))

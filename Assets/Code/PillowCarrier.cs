@@ -36,20 +36,22 @@ namespace ElMoro
 
         private void Update()
         {
-            if (InputManager.GetGrabButtonDown(playerIndex) && currentPillow == null)
+            if (InputManager.GetGrabButtonDown(playerIndex))
             {
-                var newPillow = AttemptGrab();
-                if (newPillow != null)
+                if (currentPillow == null)
                 {
-                    newPillow.Grab(grabTarget);
-                    currentPillow = newPillow;
+                    var newPillow = AttemptGrab();
+                    if (newPillow != null)
+                    {
+                        newPillow.Grab(grabTarget);
+                        currentPillow = newPillow;
+                    }
                 }
-            }
-
-            if (!InputManager.GetGrabButton(playerIndex) && currentPillow != null)
-            {
-                currentPillow.Drop();
-                currentPillow = null;
+                else
+                {
+                    currentPillow.Drop();
+                    currentPillow = null;
+                }
             }
         }
 

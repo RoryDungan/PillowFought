@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using UnityEngine;
+using Zenject;
 
 namespace ElMoro
 {
@@ -35,6 +36,9 @@ namespace ElMoro
         private new Collider collider;
 
         public Vector3 Position => transform.position;
+
+        [Inject]
+        private IPillowSettings PillowSettings { get; set; }
 
         private void Awake()
         {
@@ -106,7 +110,7 @@ namespace ElMoro
             StartCoroutine(SmoothLerpToPositionLocal(
                 Vector3.zero,
                 Quaternion.identity,
-                0.2f
+                PillowSettings.GrabAnimDuration
             ));
         }
 

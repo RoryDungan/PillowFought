@@ -21,12 +21,6 @@ namespace ElMoro
         /// specified player index.
         /// </summary>
         bool GetGrabButtonDown(int playerIndex);
-
-        /// <summary>
-        /// Returns whether the grab button is currently pressed for the
-        /// specified player index.
-        /// </summary>
-        bool GetGrabButton(int playerIndex);
     }
 
     public class InputManager : IInputManager
@@ -42,10 +36,15 @@ namespace ElMoro
             {
                 case 0:
                 {
-                    var x = (Input.GetKey(KeyCode.D) ? 1 : 0)
-                        + (Input.GetKey(KeyCode.A) ? -1 : 0);
-                    var y = (Input.GetKey(KeyCode.W) ? 1 : 0)
-                        + (Input.GetKey(KeyCode.S) ? -1 : 0);
+                    // Keyboard controlls for testing.
+                    var x = (Input.GetKey(KeyCode.D) ? 1f : 0f)
+                        + (Input.GetKey(KeyCode.A) ? -1f : 0f);
+                    var y = (Input.GetKey(KeyCode.W) ? 1f : 0f)
+                        + (Input.GetKey(KeyCode.S) ? -1f : 0f);
+
+                    // Joy-con (R)
+                    x += Input.GetAxis("Horizontal 0");
+                    y += Input.GetAxis("Vertical 0");
 
                     var movement = new Vector2(x, y);
                     movement.Normalize();
@@ -68,26 +67,7 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetKeyDown(KeyCode.Space);
-
-                default:
-                    throw new NotImplementedException(
-                        "Multiple controller support not implemented"
-                    );
-            }
-        }
-
-        public bool GetGrabButton(int playerIndex)
-        {
-            if (playerIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(playerIndex));
-            }
-
-            switch (playerIndex)
-            {
-                case 0:
-                    return Input.GetKey(KeyCode.Space);
+                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.Space);
 
                 default:
                     throw new NotImplementedException(
