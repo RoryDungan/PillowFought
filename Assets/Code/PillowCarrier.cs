@@ -12,8 +12,8 @@ namespace ElMoro
         [SerializeField]
         private int playerIndex = 0;
 
-        [SerializeField]
-        private float pickupDistance = 1f;
+        [Inject]
+        private IPlayerSettings PlayerSettings { get; set; }
 
         [Inject]
         private IInputManager InputManager { get; set; }
@@ -50,7 +50,7 @@ namespace ElMoro
 
             var hits = Physics.RaycastAll(
                 new Ray(transform.position, transform.forward),
-                pickupDistance
+                PlayerSettings.PickupDistance
             );
 
             return hits.Select(h => h.transform)
