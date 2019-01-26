@@ -116,7 +116,8 @@ namespace ElMoro
 
         public void Throw(Vector3 direction)
         {
-            throw new System.NotImplementedException();
+            Drop();
+            rigidbody.AddForce(direction, ForceMode.Impulse);
         }
     }
 }
