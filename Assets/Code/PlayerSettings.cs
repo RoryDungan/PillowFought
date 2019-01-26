@@ -28,6 +28,12 @@ namespace ElMoro
         /// Throw force after charging up.
         /// </summary>
         float MaxThrowForce { get; }
+
+        /// <summary>
+        /// How long it should take to charge from MinThrowForce to
+        /// MaxThrowForce.
+        /// </summary>
+        float ThrowChargeDuration { get; }
     }
 
     [CreateAssetMenu(fileName = "PlayerSettings", menuName = "Pillow Fought/Player settings")]
@@ -60,5 +66,10 @@ namespace ElMoro
         private float maxThrowForce = 30f;
 
         public float MaxThrowForce => maxThrowForce;
+
+        [SerializeField]
+        private float throwChargeDuration = 2f;
+
+        public float ThrowChargeDuration => throwChargeDuration;
     }
 }

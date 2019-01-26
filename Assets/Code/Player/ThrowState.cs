@@ -52,8 +52,15 @@ namespace ElMoro.Player
 
         private void Throw()
         {
-            // TODO: increase throw force with time.
-            pillow.Throw(player.Forward * playerSettings.MinThrowForce, player.Layer);
+            var chargeAmount = Mathf.Clamp01(
+                (Time.time - startTime) / playerSettings.ThrowChargeDuration
+            );
+
+            var throwForce = playerSettings.MinThrowForce
+                + (playerSettings.MaxThrowForce - playerSettings.MinThrowForce)
+                    * chargeAmount;
+
+            pillow.Throw(player.Forward * throwForce, player.Layer);
         }
 
         public class Factory : PlaceholderFactory<IPlayer, IPillow, ThrowState>{}
