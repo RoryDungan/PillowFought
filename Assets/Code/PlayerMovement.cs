@@ -13,6 +13,8 @@ namespace ElMoro
     {
         private new Rigidbody rigidbody;
 
+        private PlayerAnimationController animController;
+
         [SerializeField]
         [Tooltip("Which controller should control this player.")]
         private int playerIndex;
@@ -33,6 +35,12 @@ namespace ElMoro
             {
                 throw new Exception("Could not find Rigidbody component on PlayerMovement object.");
             }
+
+            animController = GetComponent<PlayerAnimationController>();
+            if(animController == null)
+            {
+                throw new Exception("Can'd find the Animation Controller");
+            }
         }
 
         private void FixedUpdate()
@@ -50,6 +58,8 @@ namespace ElMoro
                 movementDirection.y
             ).normalized;
             var cameraRotation = Quaternion.Euler(0f, MainCamera.RotationEuler.y, 0f);
+
+            animController.Walk((movementDirection.x != 0) || (movementDirection.y != 0));
 
             rigidbody.velocity = (cameraRotation * inputDirection)
                 * Time.fixedDeltaTime

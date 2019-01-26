@@ -22,18 +22,38 @@ namespace ElMoro
         /// </summary>
         bool GetGrabButtonDown(int playerIndex);
 
+        /// <summary>
+        /// Returns whether the grab button was released this frame for the
+        /// specified player index.
+        /// </summary>
+        bool GetGrabButtonUp(int playerIndex);
+
+        /// <summary>
+        /// Returns whether the throw button was pressed this frame for the
+        /// specified player index.
+        /// </summary>
         bool GetThrowButtonDown(int playerIndex);
+
+        /// <summary>
+        /// Returns whether the throw button was released this frame for the
+        /// specified player index.
+        /// </summary>
+        bool GetThrowButtonUp(int playerIndex);
     }
 
     public class InputManager : IInputManager
     {
+        const string Player0HorizontalAxis = "Horizontal 0";
+        const string Player0VerticalAxis = "Vertical 0";
+        const string Player0Grab = "B 0";
+        const string Player0Throw = "A 0";
+        const string Player1HorizontalAxis = "Horizontal 1";
+        const string Player1VerticalAxis = "Vertical 1";
+        const string Player1Grab = "B 1";
+        const string Player1Throw = "A 1";
+
         public Vector2 GetMovementDirection(int playerIndex)
         {
-            if (playerIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(playerIndex));
-            }
-
             switch (playerIndex)
             {
                 case 0:
@@ -45,8 +65,8 @@ namespace ElMoro
                         + (Input.GetKey(KeyCode.S) ? -1f : 0f);
 
                     // Joy-con (R)
-                    x += Input.GetAxis("Horizontal 0");
-                    y += Input.GetAxis("Vertical 0");
+                    x += Input.GetAxis(Player0HorizontalAxis);
+                    y += Input.GetAxis(Player0VerticalAxis);
 
                     var movement = new Vector2(x, y);
                     movement.Normalize();
@@ -55,8 +75,8 @@ namespace ElMoro
                 case 1:
                 {
                     // Joy-con (L)
-                    var x = Input.GetAxis("Horizontal 1");
-                    var y = Input.GetAxis("Vertical 1");
+                    var x = Input.GetAxis(Player1HorizontalAxis);
+                    var y = Input.GetAxis(Player1VerticalAxis);
 
                     var movement = new Vector2(x, y);
                     movement.Normalize();
@@ -71,18 +91,28 @@ namespace ElMoro
 
         public bool GetGrabButtonDown(int playerIndex)
         {
-            if (playerIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(playerIndex));
-            }
-
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetButtonDown("B 0") || Input.GetKeyDown(KeyCode.Space);
+                    return Input.GetButtonDown(Player0Grab) || Input.GetKeyDown(KeyCode.Space);
 
                 case 1:
-                    return Input.GetButtonDown("B 1");
+                    return Input.GetButtonDown(Player1Grab);
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            }
+        }
+
+        public bool GetGrabButtonUp(int playerIndex)
+        {
+            switch (playerIndex)
+            {
+                case 0:
+                    return Input.GetButtonUp(Player0Grab) || Input.GetKeyUp(KeyCode.Space);
+
+                case 1:
+                    return Input.GetButtonUp(Player1Grab);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerIndex));
@@ -91,18 +121,28 @@ namespace ElMoro
 
         public bool GetThrowButtonDown(int playerIndex)
         {
-            if (playerIndex < 0)
-            {
-                throw new ArgumentOutOfRangeException(nameof(playerIndex));
-            }
-
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.F);
+                    return Input.GetButtonDown(Player0Throw) || Input.GetKeyDown(KeyCode.F);
 
                 case 1:
-                    return Input.GetButtonDown("A 1");
+                    return Input.GetButtonDown(Player1Throw);
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            }
+        }
+
+        public bool GetThrowButtonUp(int playerIndex)
+        {
+            switch (playerIndex)
+            {
+                case 0:
+                    return Input.GetButtonUp(Player0Throw) || Input.GetKeyUp(KeyCode.F);
+
+                case 1:
+                    return Input.GetButtonUp(Player1Throw);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerIndex));
