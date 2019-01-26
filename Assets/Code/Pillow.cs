@@ -136,7 +136,7 @@ namespace ElMoro
 					audioManager.Play("Hit Thud");
 					if (!other.CompareTag("Pillow")) {
 						audioManager.Play("Hit Squeak");
-						other.GetComponent<PlayerMovement>().Die();
+						other.GetComponent<Player.Player>().Die();
 					}
 				}
 			}
