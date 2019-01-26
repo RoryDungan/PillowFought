@@ -24,11 +24,15 @@ namespace ElMoro
         /// being carried.
         /// </summary>
         void Throw(Vector3 direction);
+
+        Vector3 Position { get; }
     }
 
     public class Pillow : MonoBehaviour, IPillow
     {
         private new Rigidbody rigidbody;
+
+        public Vector3 Position => transform.position;
 
         private void Awake()
         {

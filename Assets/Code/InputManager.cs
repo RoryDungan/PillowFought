@@ -68,7 +68,7 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetKeyDown(KeyCode.F);
+                    return Input.GetKeyDown(KeyCode.Space);
 
                 default:
                     throw new NotImplementedException(
@@ -87,7 +87,7 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetKey(KeyCode.F);
+                    return Input.GetKey(KeyCode.Space);
 
                 default:
                     throw new NotImplementedException(

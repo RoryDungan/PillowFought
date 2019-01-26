@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -20,23 +21,35 @@ namespace ElMoro
 
         private const string PillowTag = "Pillow";
 
-        private Transform currentPillow = null;
+        private IPillow currentPillow = null;
+
+        private Transform grabTarget;
+
+        private void Awake()
+        {
+            grabTarget = transform.Find("GrabTarget");
+            if (grabTarget == null)
+            {
+                throw new Exception("PillowCarrier requires a child named GrabTarget but it could not be found!");
+            }
+        }
 
         private void Update()
         {
-            if (InputManager.GetGrabButtonDown(playerIndex))
+            if (InputManager.GetGrabButtonDown(playerIndex) && currentPillow == null)
             {
                 var newPillow = AttemptGrab();
                 if (newPillow != null)
                 {
-                    newPillow.transform.SetParent(transform);
+                    newPillow.Grab(grabTarget);
                     currentPillow = newPillow;
                 }
             }
 
             if (!InputManager.GetGrabButton(playerIndex) && currentPillow != null)
             {
-                currentPillow.SetParent(null);
+                currentPillow.Drop();
+                currentPillow = null;
             }
         }
 
@@ -44,18 +57,26 @@ namespace ElMoro
         /// Attempt to grab for a pillow. Returns the grabbed pillow, or null
         /// if none was found.
         /// </summary>
-        private Transform AttemptGrab()
+        private IPillow AttemptGrab()
         {
             // TODO: play grab animation
 
+            var rayStart = transform.position;
+            var rayEnd = transform.forward * PlayerSettings.PickupDistance;
+
+            Debug.DrawRay(rayStart, rayEnd, Color.green, 1f);
+
             var hits = Physics.RaycastAll(
-                new Ray(transform.position, transform.forward),
+                new Ray(rayStart, rayEnd),
                 PlayerSettings.PickupDistance
             );
+            Debug.Log("Hits: [ " + string.Join(", ", hits.Select(h => h.transform.gameObject.name).ToArray()) + " ]");
 
             return hits.Select(h => h.transform)
                 .Where(t => t.CompareTag(PillowTag))
-                .OrderBy(t => (t.position - transform.position).sqrMagnitude)
+                .Select(t => t.GetComponent<IPillow>())
+                .Where(p => p != null)
+                .OrderBy(p => (p.Position - transform.position).sqrMagnitude)
                 .FirstOrDefault();
         }
     }
