@@ -11,5 +11,6 @@ public class PlayerSpawner : MonoBehaviour {
 
 	public void SpawnPlayer() {
 		Debug.Log("Can't spawn players yet.");
+		
 	}
 }
