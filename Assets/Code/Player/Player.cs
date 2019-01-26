@@ -19,6 +19,10 @@ namespace ElMoro.Player
         void SetState(PlayerState newState);
 
         void SetWalkAnim(bool walking);
+
+        int Layer { get; }
+
+        void Die();
     }
 
     public class Player : MonoBehaviour, IPlayer
@@ -36,6 +40,7 @@ namespace ElMoro.Player
         public Vector3 Position => transform.position;
         public Vector3 Forward => transform.forward;
         public Transform GrabTarget => grabTarget;
+        public int Layer => gameObject.layer;
 
         private PlayerState currentState;
 
@@ -92,5 +97,10 @@ namespace ElMoro.Player
         public void SetRotation(Quaternion value) => rigidbody.rotation = value;
 
         public void SetWalkAnim(bool walking) => animController.Walk(walking);
+
+        public void Die()
+        {
+            // TODO
+        }
     }
 }
