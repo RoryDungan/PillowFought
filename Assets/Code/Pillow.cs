@@ -135,6 +135,11 @@ namespace ElMoro
         public void Explode()
         {
             Debug.Log("TODO: pillow explode");
+            Instantiate(
+                PillowSettings.FeatherPuff,
+                transform.position,
+                Quaternion.identity
+            );
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -150,6 +155,7 @@ namespace ElMoro
 
                 audioManager.Play("Hit Squeak");
                 otherPillow.Explode();
+                Explode();
             }
 
             if (otherCollider.CompareTag(Player.Player.PlayerTag))
@@ -160,10 +166,9 @@ namespace ElMoro
                     throw new Exception("Collided with object with Player tag but no Player component!");
                 }
                 audioManager.Play("Hit Thud");
+                Explode();
                 player.Die();
             }
-
-            Explode();
         }
     }
 }
