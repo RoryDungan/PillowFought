@@ -1,19 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
-public class TEST_AudioPlayer : MonoBehaviour {
-	public string testString = "Hit";
+namespace ElMoro {
+	public class TEST_AudioPlayer : MonoBehaviour {
+		public string testString = "Hit";
 
-	private void Update() {
-		if (Input.GetKeyDown(KeyCode.J)) {
-			GetComponent<AudioManager>().Play(testString, transform.position);
-		}
-		if (Input.GetKeyDown(KeyCode.M)) {
-			GetComponent<AudioManager>().Play("BGM");
-		}
-		if (Input.GetKeyDown(KeyCode.N)) {
-			GetComponent<AudioManager>().Stop("BGM");
+		[Inject]
+		IAudioManager audioManager;
+
+		private void Update() {
+			if (Input.GetKeyDown(KeyCode.J)) {
+				audioManager.Play(testString, transform.position);
+			}
+			if (Input.GetKeyDown(KeyCode.M)) {
+				audioManager.Play("BGM");
+			}
+			if (Input.GetKeyDown(KeyCode.N)) {
+				audioManager.Stop("BGM");
+			}
 		}
 	}
 }

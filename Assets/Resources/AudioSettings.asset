@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09bd43bec4abee34aab5badac340dedd, type: 3}
+  m_Name: AudioSettings
+  m_EditorClassIdentifier: 
+  audioDistanceRange: {x: 15, y: 28}
+  audioData:
+  - name: Pickup
+    audioClip: {fileID: 8300000, guid: eb7fd01cfaf2f2748927e860beef805e, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 0.98, y: 1.02}
+    spatialBlend: 1
+    isLooping: 0
+  - name: Hit Thud
+    audioClip: {fileID: 8300000, guid: 9c3f3b6a330a2cc428302429512bea85, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 0.95, y: 1.05}
+    spatialBlend: 1
+    isLooping: 0
+  - name: Hit Squeak
+    audioClip: {fileID: 8300000, guid: a348bc9a61877084ea100a6ff29fca7c, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 0.95, y: 1.05}
+    spatialBlend: 1
+    isLooping: 0
+  - name: Throw
+    audioClip: {fileID: 8300000, guid: ca9ef2bfee2bf3c4f9d1d7b2c09e8f06, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 0.98, y: 1.02}
+    spatialBlend: 1
+    isLooping: 0
+  - name: Round End
+    audioClip: {fileID: 8300000, guid: 9effcd3a4d5ba3b4883e541c49afba0e, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 1
+    isLooping: 0
+  - name: Round Begin
+    audioClip: {fileID: 8300000, guid: a4314c712a0f72b48bad8785ce6c551e, type: 3}
+    mixerGroup: {fileID: 243523298011292486, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    isLooping: 0
+  - name: Cheer
+    audioClip: {fileID: 8300000, guid: d207a63de8ed7ee49954f9bc425cf5a7, type: 3}
+    mixerGroup: {fileID: 243523298011292486, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    isLooping: 0
+  - name: Step
+    audioClip: {fileID: 8300000, guid: 6026f2a7680a30847b6e5a0b70fb1b51, type: 3}
+    mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 0.4, y: 0.45}
+    pitchRange: {x: 0.8, y: 0.9}
+    spatialBlend: 1
+    isLooping: 0
+  - name: BGM
+    audioClip: {fileID: 8300000, guid: e0ca3a65c40f62345a48667845f3390d, type: 3}
+    mixerGroup: {fileID: 243580524969279004, guid: ed87da0992b63074b9efd5aa5d401483,
+      type: 2}
+    source: {fileID: 0}
+    volRange: {x: 1, y: 1}
+    pitchRange: {x: 1, y: 1}
+    spatialBlend: 0
+    isLooping: 1
