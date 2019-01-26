@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2144132264589746776}
   - component: {fileID: 2144132264589746779}
   - component: {fileID: 2144132264589746783}
+  - component: {fileID: 1291733231}
   m_Layer: 5
   m_Name: CanvasPrefab
   m_TagString: Untagged
@@ -118,6 +119,22 @@ MonoBehaviour:
   - {fileID: 78564710120942001, guid: ce08af79433f74b7a9e6675caf1796a8, type: 3}
   - {fileID: 78564710120942001, guid: ce08af79433f74b7a9e6675caf1796a8, type: 3}
   windowTrackingLayer: {fileID: 2144132264971059563}
+--- !u!114 &1291733231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144132264589746778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea415aa82387e4f27b7c24037972694e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  displayStartWindowOnStart: 1
+  startWindow: {fileID: 11400000, guid: e5eda600b9f674ac2b4c856eed5a327f, type: 2}
+  finishWindow: {fileID: 11400000, guid: e7002404e1a004e95944cc72061e92d9, type: 2}
+  trackingWindow: {fileID: 0}
 --- !u!1 &2144132264971059562
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +144,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2144132264971059563}
+  - component: {fileID: 374881363}
   m_Layer: 5
   m_Name: WindowTracking
   m_TagString: Untagged
@@ -153,3 +171,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &374881363
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2144132264971059562}
+  m_CullTransparentMesh: 0
