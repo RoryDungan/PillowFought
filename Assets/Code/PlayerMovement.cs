@@ -19,10 +19,17 @@ namespace ElMoro
 
         [SerializeField]
         [Tooltip("Default number of units to move per second.")]
-        private float movementSpeed = 1;
+        private float movementSpeed = 10f;
+
+        [SerializeField]
+        [Tooltip("How quickly the player should rotate to face the direction of movement")]
+        private float maxRotationSpeed = 20f;
 
         [Inject]
         private IInputManager InputManager { get; set; }
+
+        [Inject]
+        private IMainCamera MainCamera { get; set; }
 
         private void Awake()
         {
@@ -35,9 +42,55 @@ namespace ElMoro
 
         private void FixedUpdate()
         {
-            var movementDelta = InputManager.GetMovementDirection(playerIndex)
-                * Time.deltaTime * movementSpeed;
-            rigidbody.velocity = new Vector3(movementDelta.x, 0f, movementDelta.y);
+            var movement = InputManager.GetMovementDirection(playerIndex);
+            MovePlayer(movement);
+            FaceDirectionOfMovement(movement);
+        }
+
+        private void MovePlayer(Vector2 movementDirection)
+        {
+            var movementDelta = movementDirection
+                * Time.fixedDeltaTime * movementSpeed;
+
+            var inputDirection = new Vector3(
+                movementDirection.x,
+                0f,
+                movementDirection.y
+            ).normalized;
+            var cameraRotation = Quaternion.Euler(0f, MainCamera.RotationEuler.y, 0f);
+
+            rigidbody.velocity = (cameraRotation * inputDirection) * movementSpeed;
+        }
+
+        private void FaceDirectionOfMovement(Vector2 movementDirection)
+        {
+            var inputDirection = new Vector3(
+                movementDirection.x,
+                0f,
+                movementDirection.y
+            );
+
+            if (inputDirection == Vector3.zero)
+            {
+                return;
+            }
+
+            var relativeToCamera = Quaternion.LookRotation(MainCamera.Forward)
+                * inputDirection;
+
+            var normalised = new Vector3(
+                relativeToCamera.x,
+                0f,
+                relativeToCamera.z
+            ).normalized;
+
+            rigidbody.rotation = Quaternion.LookRotation(
+                Vector3.Lerp(
+                    transform.forward,
+                    normalised,
+                    maxRotationSpeed * Time.fixedDeltaTime
+                )
+            );
         }
     }
 }

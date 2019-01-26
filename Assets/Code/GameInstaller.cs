@@ -1,3 +1,4 @@
+using UnityEngine;
 using Zenject;
 
 namespace ElMoro
@@ -8,6 +9,11 @@ namespace ElMoro
         {
             Container.Bind<IInputManager>()
                 .To<InputManager>()
+                .AsSingle();
+
+            Container.Bind<IMainCamera>()
+                .To<MainCamera>()
+                .FromComponentOn(GameObject.FindGameObjectWithTag("MainCamera"))
                 .AsSingle();
         }
     }

@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: c734d5898e0ac492db695c4a65aafc85
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Cutepunk
+  fontNames:
+  - Cutepunk
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 8b7662556f48c4a2c98f564115a322b5, type: 3}
+  - {fileID: 12800000, guid: 790f5cdb33a194995aa37eaa626b2b03, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
