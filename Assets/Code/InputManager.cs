@@ -22,11 +22,7 @@ namespace ElMoro
         /// </summary>
         bool GetGrabButtonDown(int playerIndex);
 
-        /// <summary>
-        /// Returns whether the grab button is currently pressed for the
-        /// specified player index.
-        /// </summary>
-        bool GetGrabButton(int playerIndex);
+        bool GetThrowButtonDown(int playerIndex);
     }
 
     public class InputManager : IInputManager
@@ -42,10 +38,25 @@ namespace ElMoro
             {
                 case 0:
                 {
-                    var x = (Input.GetKey(KeyCode.D) ? 1 : 0)
-                        + (Input.GetKey(KeyCode.A) ? -1 : 0);
-                    var y = (Input.GetKey(KeyCode.W) ? 1 : 0)
-                        + (Input.GetKey(KeyCode.S) ? -1 : 0);
+                    // Keyboard controlls for testing.
+                    var x = (Input.GetKey(KeyCode.D) ? 1f : 0f)
+                        + (Input.GetKey(KeyCode.A) ? -1f : 0f);
+                    var y = (Input.GetKey(KeyCode.W) ? 1f : 0f)
+                        + (Input.GetKey(KeyCode.S) ? -1f : 0f);
+
+                    // Joy-con (R)
+                    x += Input.GetAxis("Horizontal 0");
+                    y += Input.GetAxis("Vertical 0");
+
+                    var movement = new Vector2(x, y);
+                    movement.Normalize();
+                    return movement;
+                }
+                case 1:
+                {
+                    // Joy-con (L)
+                    var x = Input.GetAxis("Horizontal 1");
+                    var y = Input.GetAxis("Vertical 1");
 
                     var movement = new Vector2(x, y);
                     movement.Normalize();
@@ -68,16 +79,17 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetKeyDown(KeyCode.F);
+                    return Input.GetButtonDown("B 0") || Input.GetKeyDown(KeyCode.Space);
+
+                case 1:
+                    return Input.GetButtonDown("B 1");
 
                 default:
-                    throw new NotImplementedException(
-                        "Multiple controller support not implemented"
-                    );
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
             }
         }
 
-        public bool GetGrabButton(int playerIndex)
+        public bool GetThrowButtonDown(int playerIndex)
         {
             if (playerIndex < 0)
             {
@@ -87,12 +99,13 @@ namespace ElMoro
             switch (playerIndex)
             {
                 case 0:
-                    return Input.GetKey(KeyCode.F);
+                    return Input.GetButtonDown("A 0") || Input.GetKeyDown(KeyCode.F);
+
+                case 1:
+                    return Input.GetButtonDown("A 1");
 
                 default:
-                    throw new NotImplementedException(
-                        "Multiple controller support not implemented"
-                    );
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
             }
         }
     }

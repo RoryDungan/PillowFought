@@ -17,13 +17,8 @@ namespace ElMoro
         [Tooltip("Which controller should control this player.")]
         private int playerIndex;
 
-        [SerializeField]
-        [Tooltip("Default number of units to move per second.")]
-        private float movementSpeed = 10f;
-
-        [SerializeField]
-        [Tooltip("How quickly the player should rotate to face the direction of movement")]
-        private float maxRotationSpeed = 20f;
+        [Inject]
+        private IPlayerSettings PlayerSettings { get; set; }
 
         [Inject]
         private IInputManager InputManager { get; set; }
@@ -49,9 +44,6 @@ namespace ElMoro
 
         private void MovePlayer(Vector2 movementDirection)
         {
-            var movementDelta = movementDirection
-                * Time.fixedDeltaTime * movementSpeed;
-
             var inputDirection = new Vector3(
                 movementDirection.x,
                 0f,
@@ -59,7 +51,9 @@ namespace ElMoro
             ).normalized;
             var cameraRotation = Quaternion.Euler(0f, MainCamera.RotationEuler.y, 0f);
 
-            rigidbody.velocity = (cameraRotation * inputDirection) * movementSpeed;
+            rigidbody.velocity = (cameraRotation * inputDirection)
+                * Time.fixedDeltaTime
+                * PlayerSettings.MovementSpeed;
         }
 
         private void FaceDirectionOfMovement(Vector2 movementDirection)
@@ -88,7 +82,7 @@ namespace ElMoro
                 Vector3.Lerp(
                     transform.forward,
                     normalised,
-                    maxRotationSpeed * Time.fixedDeltaTime
+                    PlayerSettings.RotationSpeed * Time.fixedDeltaTime
                 )
             );
         }

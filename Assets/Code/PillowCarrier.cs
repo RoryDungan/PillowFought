@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -12,31 +13,50 @@ namespace ElMoro
         [SerializeField]
         private int playerIndex = 0;
 
-        [SerializeField]
-        private float pickupDistance = 1f;
+        [Inject]
+        private IPlayerSettings PlayerSettings { get; set; }
 
         [Inject]
         private IInputManager InputManager { get; set; }
 
         private const string PillowTag = "Pillow";
 
-        private Transform currentPillow = null;
+        private IPillow currentPillow = null;
+
+        private Transform grabTarget;
+
+        private void Awake()
+        {
+            grabTarget = transform.Find("GrabTarget");
+            if (grabTarget == null)
+            {
+                throw new Exception("PillowCarrier requires a child named GrabTarget but it could not be found!");
+            }
+        }
 
         private void Update()
         {
             if (InputManager.GetGrabButtonDown(playerIndex))
             {
-                var newPillow = AttemptGrab();
-                if (newPillow != null)
+                if (currentPillow == null)
                 {
-                    newPillow.transform.SetParent(transform);
-                    currentPillow = newPillow;
+                    var newPillow = AttemptGrab();
+                    if (newPillow != null)
+                    {
+                        newPillow.Grab(grabTarget);
+                        currentPillow = newPillow;
+                    }
+                }
+                else
+                {
+                    currentPillow.Drop();
+                    currentPillow = null;
                 }
             }
 
-            if (!InputManager.GetGrabButton(playerIndex) && currentPillow != null)
+            if (InputManager.GetThrowButtonDown(playerIndex) && currentPillow != null)
             {
-                currentPillow.SetParent(null);
+                currentPillow.Throw(transform.forward * PlayerSettings.MinThrowForce);
             }
         }
 
@@ -44,18 +64,25 @@ namespace ElMoro
         /// Attempt to grab for a pillow. Returns the grabbed pillow, or null
         /// if none was found.
         /// </summary>
-        private Transform AttemptGrab()
+        private IPillow AttemptGrab()
         {
             // TODO: play grab animation
 
+            var rayStart = transform.position;
+            var rayEnd = transform.forward * PlayerSettings.PickupDistance;
+
+            Debug.DrawRay(rayStart, rayEnd, Color.green, 1f);
+
             var hits = Physics.RaycastAll(
-                new Ray(transform.position, transform.forward),
-                pickupDistance
+                new Ray(rayStart, rayEnd),
+                PlayerSettings.PickupDistance
             );
 
             return hits.Select(h => h.transform)
                 .Where(t => t.CompareTag(PillowTag))
-                .OrderBy(t => (t.position - transform.position).sqrMagnitude)
+                .Select(t => t.GetComponent<IPillow>())
+                .Where(p => p != null)
+                .OrderBy(p => (p.Position - transform.position).sqrMagnitude)
                 .FirstOrDefault();
         }
     }
