@@ -27,7 +27,7 @@ public class WindowContainer : MonoBehaviour
     }
 
     /// <summary>
-    /// this class will close the window and animate it out before destroying it
+    /// this function will close the window and animate it out before destroying it
     /// </summary>
     public async void CloseWindow()
     {
