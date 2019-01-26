@@ -9,13 +9,15 @@ namespace ElMoro.Player
         private readonly IPlayerMovement playerMovement;
         private readonly IInputManager inputManager;
         private readonly WalkState.Factory walkStateFactory;
+        private readonly ThrowState.Factory throwStateFactory;
 
         public PillowCarryState(
             IPlayer player,
             IPillow pillow,
             PlayerMovement.Factory playerMovementFactory,
             IInputManager inputManager,
-            WalkState.Factory walkStateFactory
+            WalkState.Factory walkStateFactory,
+            ThrowState.Factory throwStateFactory
         )
         {
             this.player = player;
@@ -23,16 +25,12 @@ namespace ElMoro.Player
             this.playerMovement = playerMovementFactory.Create(player);
             this.inputManager = inputManager;
             this.walkStateFactory = walkStateFactory;
+            this.throwStateFactory = throwStateFactory;
         }
 
         public override void Start()
         {
             pillow.Grab(player.GrabTarget);
-        }
-
-        public override void Dispose()
-        {
-            pillow.Drop();
         }
 
         public override void FixedUpdate()
@@ -45,7 +43,13 @@ namespace ElMoro.Player
         {
             if (inputManager.GetGrabButtonDown(player.ControllerIndex))
             {
+                pillow.Drop();
                 player.SetState(walkStateFactory.Create(player));
+            }
+
+            if (inputManager.GetThrowButtonDown(player.ControllerIndex))
+            {
+                player.SetState(throwStateFactory.Create(player, pillow));
             }
         }
 

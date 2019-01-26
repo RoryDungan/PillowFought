@@ -33,6 +33,7 @@ namespace ElMoro
                 .To<PillowCarrier>();
             Container.BindFactory<IPlayer, WalkState, WalkState.Factory>();
             Container.BindFactory<IPlayer, IPillow, PillowCarryState, PillowCarryState.Factory>();
+            Container.BindFactory<IPlayer, IPillow, ThrowState, ThrowState.Factory>();
         }
     }
 }
