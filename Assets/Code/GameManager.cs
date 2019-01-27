@@ -13,6 +13,8 @@ namespace ElMoro {
 
         void ResetRound();
 
+        void StartGame();
+
         void RegisterSpawner(PlayerSpawner spawner);
         void UnregisterSpawner(PlayerSpawner spawner);
     }
@@ -78,6 +80,14 @@ namespace ElMoro {
         private void EndGame() {
             // UI Hook: Bring up end screen
             // Can either reset current scene or go to main menu
+        }
+
+        public void StartGame()
+        {
+            foreach (var spawner in playerSpawners)
+            {
+                spawner.SpawnPlayer();
+            }
         }
     }
 }
