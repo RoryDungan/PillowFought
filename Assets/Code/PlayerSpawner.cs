@@ -18,12 +18,26 @@ namespace ElMoro
         [Inject]
         private Player.Player.Factory playerFactory;
 
+        [Inject]
+        private IGameManager gameManager;
+
         private void Awake()
         {
             if (playerPrefab == null)
             {
                 throw new Exception("Player spawner has no player prefab assigned!");
             }
+        }
+
+        private void Start()
+        {
+            gameManager.RegisterSpawner(this);
+            SpawnPlayer();
+        }
+
+        private void OnDestroy()
+        {
+            gameManager.UnregisterSpawner(this);
         }
 
         private void Update()
