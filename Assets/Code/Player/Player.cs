@@ -142,6 +142,7 @@ namespace ElMoro.Player
             var duration = 5f;
 
             var particles = Instantiate(dieParticles);
+            particles.transform.position = transform.position;
             Destroy(gameObject);
             Destroy(particles, duration);
 
