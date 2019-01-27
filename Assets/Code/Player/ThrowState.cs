@@ -43,7 +43,7 @@ namespace ElMoro.Player
 
         public override void Update()
         {
-            if (inputManager.GetThrowButtonUp(player.ControllerIndex))
+            if (!inputManager.GetThrowButton(player.ControllerIndex))
             {
                 Throw();
                 player.SetState(walkStateFactory.Create(player));
