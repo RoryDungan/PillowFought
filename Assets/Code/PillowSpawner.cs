@@ -17,21 +17,35 @@ public class PillowSpawner : MonoBehaviour
 	[Inject]
 	private Pillow.Factory pillowFactory;
 
-    void Start()
-    {
-        spawnBounds = new Vector3[2];
+	[Inject]
+	private IGameManager gameManager;
+
+	void Start()
+	{
+		gameManager.RegisterPillowSpawner(this);
+
+		spawnBounds = new Vector3[2];
 		spawnBounds[0] = GetComponent<Collider>().bounds.max;
 		spawnBounds[0] = GetComponent<Collider>().bounds.min;
 
 		pillows = new List<IPillow>();
-    }
+	}
 
 	public void StartSpawn() {
-        StartCoroutine("SpawnPillows");
+		StartCoroutine("SpawnPillows");
 	}
 
 	public void StopSpawn() {
-        StopCoroutine("SpawnPillows");
+		StopCoroutine("SpawnPillows");
+	}
+
+	public void DestroyPillows() {
+		GameObject[] pills = GameObject.FindGameObjectsWithTag("Pillow");
+		for (int pillIndex = 0; pillIndex < pills.Length; pillIndex++) {
+			Destroy(pills[pillIndex]);
+		}
+
+		pillows.Clear();
 	}
 
 	private IEnumerator SpawnPillows() {
