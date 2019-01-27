@@ -61,8 +61,6 @@ namespace ElMoro
             Container.BindFactory<UnityEngine.Object, IPlayer, Player.Player.Factory>()
                 .To<Player.Player>()
                 .FromFactory<PrefabFactory<Player.Player>>();
-
-			Container.Resolve<IGameManager>();
         }
     }
 }
