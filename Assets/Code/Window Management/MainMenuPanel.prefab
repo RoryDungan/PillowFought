@@ -495,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 8679908275149672969}
   exitButton: {fileID: 2132969951553144243}
+  scoreKeeperScheme: {fileID: 11400000, guid: a002f89bf4b7b4fa3a7ba24dbae31b90, type: 2}
 --- !u!1 &4319157513900284921
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,8 +915,8 @@ RectTransform:
   m_Father: {fileID: 3625150517372184745}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 1}
-  m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 450}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 311.6}
   m_Pivot: {x: 0.5, y: 1}

@@ -12,6 +12,10 @@ public class StartMenuLogic : MonoBehaviour
     private UnityAction playEvent;
     private UnityAction exitEvent;
 
+    [SerializeField]
+    private WindowSchematic scoreKeeperScheme;
+    private GameObject scoreKeeperInstance;
+
     /// <summary>
     /// set up the events for this function
     /// </summary>
@@ -32,6 +36,7 @@ public class StartMenuLogic : MonoBehaviour
             || Input.GetButtonDown(InputManager.Player1Throw)
             || Input.GetKeyDown(KeyCode.F))
         {
+            scoreKeeperInstance = WindowCreator.instance.CreateWindow(scoreKeeperScheme);
             playEvent.Invoke();
         }
         if (Input.GetButtonDown(InputManager.Player0Grab)

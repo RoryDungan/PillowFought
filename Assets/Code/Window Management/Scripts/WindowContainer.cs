@@ -12,7 +12,7 @@ public class WindowContainer : MonoBehaviour
     private const string SHOW_WINDOW = "showWindow";
 
     [Tooltip("this is where the actual content is placed into when the object is ")]
-    public Transform content;
+    public RectTransform content;
 
     private Animator _anim;
 
