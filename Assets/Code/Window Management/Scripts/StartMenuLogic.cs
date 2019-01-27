@@ -31,14 +31,14 @@ public class StartMenuLogic : MonoBehaviour
 
     private void Update()
     {
-        if (inputManager.GetGrabButtonDown(0))
-        {
-            playEvent.Invoke();
-        }
-        else if (inputManager.GetThrowButtonDown(0))
-        {
-            exitEvent.Invoke();
-        }
+        // if (inputManager.GetGrabButtonDown(0))
+        // {
+        //     playEvent.Invoke();
+        // }
+        // else if (inputManager.GetThrowButtonDown(0))
+        // {
+        //     exitEvent.Invoke();
+        // }	
     }
 
 }
