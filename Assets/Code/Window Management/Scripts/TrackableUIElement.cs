@@ -27,9 +27,12 @@ public class TrackableUIElement : MonoBehaviour
     {
         if (isTracking)
         {
-            Vector3 destination = SetInterfacePosition() + deltaPosition;
-            contents.anchoredPosition = destination;
-            //Debug.Log($"Moving {this.gameObject.name}'s contents to {destination}");
+            if (objectToTrack != null)
+            {
+                Vector3 destination = SetInterfacePosition() + deltaPosition;
+                contents.anchoredPosition = destination;
+                //Debug.Log($"Moving {this.gameObject.name}'s contents to {destination}");
+            }
         }
     }
 
@@ -40,7 +43,10 @@ public class TrackableUIElement : MonoBehaviour
     private Vector3 SetInterfacePosition()
     {
         // get the screen point of the game object
-        return Camera.main.WorldToScreenPoint(objectToTrack.transform.position);
+        if (objectToTrack != null)
+            return Camera.main.WorldToScreenPoint(objectToTrack.transform.position);
+        else
+            return Vector3.zero;
 
     }
 
