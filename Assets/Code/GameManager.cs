@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using Zenject;
@@ -11,43 +12,28 @@ namespace ElMoro {
         void PlayerDefeated(int defeatedPlayerIndex);
 
         void ResetRound();
+
+        void RegisterSpawner(PlayerSpawner spawner);
+        void UnregisterSpawner(PlayerSpawner spawner);
     }
 
     public class GameManager : IGameManager {
         private int[] playerLives;
-        private PlayerSpawner[] playerSpawners;
+        private IList<PlayerSpawner> playerSpawners = new List<PlayerSpawner>();
+
+        public void RegisterSpawner(PlayerSpawner spawner)
+        {
+            playerSpawners.Add(spawner);
+        }
+
+        public void UnregisterSpawner(PlayerSpawner spawner)
+        {
+            playerSpawners.Remove(spawner);
+        }
 
         [Inject]
         public void Setup(IGameManagerSettings gmSettings) {
             playerLives = new int[] {gmSettings.MaxLives, gmSettings.MaxLives};
-
-            var spawn1Obj = GameObject.FindGameObjectWithTag("Spawn1");
-            if (spawn1Obj == null)
-            {
-                throw new Exception("Could not find object with tag Spawn1 in the scene.");
-            }
-            var spawn1 = spawn1Obj.GetComponent<PlayerSpawner>();
-            if (spawn1 == null)
-            {
-                throw new Exception("Found object with Spawn1 tag but it was missing PlayerSpawner component.");
-            }
-
-            var spawn2Obj = GameObject.FindGameObjectWithTag("Spawn2");
-            if (spawn2Obj == null)
-            {
-                throw new Exception("Could not find object with tag Spawn2 in the scene.");
-            }
-            var spawn2 = spawn2Obj.GetComponent<PlayerSpawner>();
-            if (spawn2 == null)
-            {
-                throw new Exception("Found object with Spawn2 tag but it was missing PlayerSpawner component.");
-            }
-
-            playerSpawners = new [] { spawn1, spawn2 };
-
-            foreach (var spawner in playerSpawners) {
-                spawner.SpawnPlayer();
-            }
         }
 
         public void PlayerDefeated(int defeatedPlayerIndex) {
