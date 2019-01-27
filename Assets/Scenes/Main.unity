@@ -347,6 +347,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 3119141033368434353, guid: 5f28f52c41acc4e969ff1bc50926c943,
     type: 3}
   playerIndex: 1
+  spawnOnStart: 0
 --- !u!4 &1011949246
 Transform:
   m_ObjectHideFlags: 0
@@ -666,6 +667,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 3119141033368434353, guid: 5f28f52c41acc4e969ff1bc50926c943,
     type: 3}
   playerIndex: 0
+  spawnOnStart: 0
 --- !u!4 &1992078694
 Transform:
   m_ObjectHideFlags: 0
