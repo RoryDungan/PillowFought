@@ -28,17 +28,18 @@ namespace ElMoro
 
         private void Update()
         {
-            // Testing
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                SpawnPlayer();
-            }
+            // // Testing
+            // if (Input.GetKeyDown(KeyCode.P))
+            // {
+            //     SpawnPlayer();
+            // }
         }
 
         public void SpawnPlayer()
         {
-            var newPlayer = playerFactory.Create(playerPrefab);
+            var newPlayer = playerFactory.Create(playerPrefab);	
             newPlayer.ControllerIndex = playerIndex;
+            newPlayer.Position = transform.position;
         }
     }
 }

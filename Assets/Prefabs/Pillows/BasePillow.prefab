@@ -61,6 +61,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e32f7091ec79422ca92d02e265dca38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackableButtonPrompt: {fileID: 11400000, guid: 3189750d00cd64e4293290a0ffd385a2,
+    type: 2}
+  trackableButtonPromotObject: {fileID: 0}
+  explodeParticles: {fileID: 0}
 --- !u!65 &2771987742551029757
 BoxCollider:
   m_ObjectHideFlags: 0
