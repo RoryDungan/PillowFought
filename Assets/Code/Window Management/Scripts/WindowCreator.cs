@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Threading.Tasks;
+using UnityEngine;
 
 /// <summary>
 /// this class simply creates windows easily from anywhere
@@ -10,6 +11,8 @@ public class WindowCreator : MonoBehaviour
     [SerializeField]
     private RectTransform windowTrackingLayer;
     public static WindowCreator instance;
+
+    public WindowSchematic roundFinishWindow;
 
     public void Awake()
     {
@@ -55,6 +58,16 @@ public class WindowCreator : MonoBehaviour
 
         newTrackableWindow.GetComponent<TrackableUIElement>().StartTracking(objectToTrack);
         return newTrackableWindow;
+    }
+
+    public async void OnRoundFinish(int winningPlayer)
+    {
+        GameObject go = CreateWindow(roundFinishWindow);
+        go.GetComponentInChildren<FinishWindow>().Populate(winningPlayer);
+
+        await Task.Delay(2000);
+
+        go.GetComponent<WindowContainer>().CloseWindow();
     }
 }
 
