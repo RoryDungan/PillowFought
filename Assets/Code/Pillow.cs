@@ -137,11 +137,12 @@ namespace ElMoro
 
         public void Explode()
         {
-            Instantiate(
+            var featherParticles = Instantiate(
                 pillowSettings.FeatherPuff,
                 transform.position,
                 Quaternion.identity
             );
+            Destroy(featherParticles, pillowSettings.FeatherPuffDuration);
             Destroy(gameObject);
         }
 

@@ -16,6 +16,12 @@ namespace ElMoro
         /// Particle system to trigger when pillow is destroyed.
         /// </summary>
         ParticleSystem FeatherPuff { get; }
+
+        /// <summary>
+        /// How long the feather puff particles should exist for before being
+        /// destroyed.
+        /// </summary>
+        float FeatherPuffDuration { get; }
     }
 
     [CreateAssetMenu(fileName = "PillowSettings", menuName = "Pillow Fought/Pillow settings")]
@@ -32,5 +38,11 @@ namespace ElMoro
         private ParticleSystem featherPuff;
 
         public ParticleSystem FeatherPuff => featherPuff;
+
+        [SerializeField]
+        [Tooltip("How long the feather puff particles should exist for before being destroyed.")]
+        private float featherPuffDuration = 5f;
+
+        public float FeatherPuffDuration => featherPuffDuration;
     }
 }
