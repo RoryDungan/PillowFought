@@ -58,7 +58,6 @@ public class PillowSpawner : MonoBehaviour
                     Random.Range(spawnBounds[0].z, spawnBounds[1].z)
                 );
 				pillows.Add(newPillow);
-
 			}
             yield return new WaitForSeconds(spawnRate);
 		}

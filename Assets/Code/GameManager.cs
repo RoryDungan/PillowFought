@@ -46,7 +46,7 @@ namespace ElMoro {
         [Inject]
         public void Setup(IGameManagerSettings gmSettings) {
             playerLives = new int[] {gmSettings.MaxLives, gmSettings.MaxLives};
-			audioManager.Play("BGM");
+			// audioManager.Play("BGM");
         }
 
         public void PlayerDefeated(int defeatedPlayerIndex) {
