@@ -15,6 +15,9 @@ namespace ElMoro
         [Range(0, 1)]
         private int playerIndex;
 
+        [SerializeField]
+        private bool spawnOnStart = false;
+
         [Inject]
         private Player.Player.Factory playerFactory;
 
@@ -32,6 +35,10 @@ namespace ElMoro
         private void Start()
         {
             gameManager.RegisterSpawner(this);
+            if (spawnOnStart)
+            {
+                SpawnPlayer();
+            }
         }
 
         private void OnDestroy()
