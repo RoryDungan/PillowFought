@@ -229,5 +229,7 @@ namespace ElMoro
                 player.Die();
             }
         }
+
+        public class Factory : PlaceholderFactory<UnityEngine.Object, IPillow>{};
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class TrackableUIElement : MonoBehaviour
 {
@@ -9,6 +10,16 @@ public class TrackableUIElement : MonoBehaviour
 
     bool isTracking = false;
     private RectTransform parentRect;
+
+    private Camera mainCamera;
+    private Vector2 referenceResolution;
+
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+        var canvasScaler = GetComponentInParent<CanvasScaler>();
+        referenceResolution = canvasScaler.referenceResolution;
+    }
 
     public void StartTracking(GameObject trackingObject)
     {
@@ -29,7 +40,7 @@ public class TrackableUIElement : MonoBehaviour
         {
             if (objectToTrack != null)
             {
-                Vector3 destination = SetInterfacePosition() + deltaPosition;
+                Vector3 destination = GetInterfacePosition() + deltaPosition;
                 contents.anchoredPosition = destination;
                 //Debug.Log($"Moving {this.gameObject.name}'s contents to {destination}");
             }
@@ -40,13 +51,21 @@ public class TrackableUIElement : MonoBehaviour
     /// manages setting the position of a trackable UI element
     /// </summary>
     /// <returns>The interface position.</returns>
-    private Vector3 SetInterfacePosition()
+    private Vector3 GetInterfacePosition()
     {
         // get the screen point of the game object
         if (objectToTrack != null)
-            return Camera.main.WorldToScreenPoint(objectToTrack.transform.position);
+        {
+            var pos = mainCamera.WorldToScreenPoint(objectToTrack.transform.position);
+            return new Vector2(
+                (pos.x / mainCamera.pixelWidth) * referenceResolution.x,
+                (pos.y / mainCamera.pixelHeight) * referenceResolution.y
+            );
+        }
         else
+        {
             return Vector3.zero;
+        }
 
     }
 

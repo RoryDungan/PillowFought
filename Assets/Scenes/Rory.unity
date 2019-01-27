@@ -213,6 +213,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 3119141033368434353, guid: 5f28f52c41acc4e969ff1bc50926c943,
     type: 3}
   playerIndex: 0
+  spawnOnStart: 1
 --- !u!4 &259437227
 Transform:
   m_ObjectHideFlags: 0
@@ -750,6 +751,7 @@ MonoBehaviour:
   playerPrefab: {fileID: 3119141033368434353, guid: 5f28f52c41acc4e969ff1bc50926c943,
     type: 3}
   playerIndex: 1
+  spawnOnStart: 1
 --- !u!4 &1468324842
 Transform:
   m_ObjectHideFlags: 0
@@ -1244,6 +1246,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8209938009075795788, guid: f13238ff1b07b4cdfabaafe11958a188,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 12.38
+      objectReference: {fileID: 0}
+    - target: {fileID: 8209938009075795788, guid: f13238ff1b07b4cdfabaafe11958a188,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 17.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f13238ff1b07b4cdfabaafe11958a188, type: 3}
