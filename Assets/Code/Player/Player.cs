@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using Zenject;
 
@@ -6,7 +7,7 @@ namespace ElMoro.Player
 {
     public interface IPlayer
     {
-        Vector3 Position { get; }
+        Vector3 Position { get; set; }
         Vector3 Forward { get; }
         Transform GrabTarget { get; }
 
@@ -39,6 +40,9 @@ namespace ElMoro.Player
         [Tooltip("Which controller should control this player.")]
         private int index;
 
+        [SerializeField]
+        private ParticleSystem dieParticles;
+
         public int ControllerIndex
         {
             get => index;
@@ -49,7 +53,11 @@ namespace ElMoro.Player
         private Transform grabTarget;
         private PlayerAnimationController animController;
 
-        public Vector3 Position => transform.position;
+        public Vector3 Position
+        {
+            get => rigidbody.position;
+            set => rigidbody.position = value;
+        }
         public Vector3 Forward => transform.forward;
         public Transform GrabTarget => grabTarget;
         public int Layer => gameObject.layer;
@@ -59,8 +67,16 @@ namespace ElMoro.Player
         [Inject]
         private WalkState.Factory walkStateFactory;
 
+        [Inject]
+        private IGameManager gameManager;
+
         private void Awake()
         {
+            if (dieParticles == null)
+            {
+                throw new Exception("No dieParticles assigned to player.");
+            }
+
             rigidbody = GetComponent<Rigidbody>();
             if (rigidbody == null)
             {
@@ -118,7 +134,20 @@ namespace ElMoro.Player
 
         public void Die()
         {
-            // TODO
+            StartCoroutine(DieCoroutine());
+        }
+
+        private IEnumerator DieCoroutine()
+        {
+            var duration = 5f;
+
+            var particles = Instantiate(dieParticles);
+            Destroy(gameObject);
+            Destroy(particles, duration);
+
+            yield return new WaitForSeconds(duration);
+
+            gameManager.PlayerDefeated(index);
         }
 
         public class Factory : PlaceholderFactory<UnityEngine.Object, IPlayer>{};

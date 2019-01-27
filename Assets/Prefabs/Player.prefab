@@ -261,6 +261,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  dieParticles: {fileID: 640072052846525675, guid: e32cc99f7511b4ecc87f173f5c12f3fb,
+    type: 3}
 --- !u!1001 &3119141032258142908
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,6 +270,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3119141033368434358}
     m_Modifications:
+    - target: {fileID: 100068, guid: 1b9b03a089d56ea47b75c4610adab0cd, type: 3}
+      propertyPath: m_Name
+      value: Theodore_withAnimations
+      objectReference: {fileID: 0}
     - target: {fileID: 400068, guid: 1b9b03a089d56ea47b75c4610adab0cd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -323,10 +329,6 @@ PrefabInstance:
     - target: {fileID: 400068, guid: 1b9b03a089d56ea47b75c4610adab0cd, type: 3}
       propertyPath: m_LocalScale.z
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 100068, guid: 1b9b03a089d56ea47b75c4610adab0cd, type: 3}
-      propertyPath: m_Name
-      value: Theodore_withAnimations
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: 1b9b03a089d56ea47b75c4610adab0cd, type: 3}
       propertyPath: m_Controller

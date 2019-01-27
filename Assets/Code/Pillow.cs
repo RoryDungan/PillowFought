@@ -44,7 +44,7 @@ namespace ElMoro
         private new Rigidbody rigidbody;
         private new Collider collider;
 
-        private const string PillowTag = "Pillow";
+        public const string PillowTag = "Pillow";
 
         public Vector3 Position => transform.position;
 
