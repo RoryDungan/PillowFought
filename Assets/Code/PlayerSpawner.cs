@@ -32,7 +32,6 @@ namespace ElMoro
         private void Start()
         {
             gameManager.RegisterSpawner(this);
-            SpawnPlayer();
         }
 
         private void OnDestroy()
@@ -51,7 +50,7 @@ namespace ElMoro
 
         public void SpawnPlayer()
         {
-            var newPlayer = playerFactory.Create(playerPrefab);	
+            var newPlayer = playerFactory.Create(playerPrefab);
             newPlayer.ControllerIndex = playerIndex;
             newPlayer.Position = transform.position;
         }

@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using ElMoro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class SceneCoordinator : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class SceneCoordinator : MonoBehaviour
 
     private GameObject startWindowInstance;
     private GameObject finishWindowInstance;
+
+    [Inject]
+    private IGameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +33,9 @@ public class SceneCoordinator : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        SceneManager.LoadSceneAsync("gameScene");
-        SceneManager.UnloadSceneAsync("Main");
+        startWindowInstance.GetComponentInChildren<WindowContainer>()
+            .CloseWindow();
+        gameManager.StartGame();
     }
 
     public void QuitGame()
