@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6041205297451841702
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5251231136545876796, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_Name
+      value: CrescentPillow_Purple
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876791, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5251231136545876790, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: explodeParticles
+      value: 
+      objectReference: {fileID: 6558993093998550662, guid: 58c3365445121419e96dcf90ac05776c,
+        type: 3}
+    - target: {fileID: 2714665606870495702, guid: 48d33a6f6833649f7aed5e6c6dddc844,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b6c32bfb7d860e4c945d6d4aae6a3e0, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 48d33a6f6833649f7aed5e6c6dddc844, type: 3}

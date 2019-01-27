@@ -19,6 +19,8 @@ namespace ElMoro
         private readonly IPlayerSettings playerSettings;
         private readonly IPlayer player;
 
+        private RaycastHit[] hitBuffer = new RaycastHit[5];
+
         private const string PillowTag = "Pillow";
 
         public PillowCarrier(IPlayer player, IPlayerSettings playerSettings)
@@ -33,24 +35,36 @@ namespace ElMoro
         /// </summary>
         public IPillow AttemptGrab()
         {
-            // TODO: play grab animation
-
             var rayStart = player.Position;
             var rayEnd = player.Forward * playerSettings.PickupDistance;
 
-            Debug.DrawRay(rayStart, rayEnd, Color.green, 1f);
-
-            var hits = Physics.RaycastAll(
+            var numHits = Physics.RaycastNonAlloc(
                 new Ray(rayStart, rayEnd),
+                hitBuffer,
                 playerSettings.PickupDistance
             );
 
-            return hits.Select(h => h.transform)
-                .Where(t => t.CompareTag(PillowTag))
-                .Select(t => t.GetComponent<IPillow>())
-                .Where(p => p != null)
-                .OrderBy(p => (p.Position - player.Position).sqrMagnitude)
-                .FirstOrDefault();
+            IPillow hit = null;
+            var hitDistance = float.MaxValue;
+            for (var i = 0; i < numHits; i++)
+            {
+                if (!hitBuffer[i].transform.CompareTag(PillowTag))
+                {
+                    continue;
+                }
+                var pillow = hitBuffer[i].transform.GetComponent<IPillow>();
+                if (pillow == null)
+                {
+                    continue;
+                }
+                var distance = (pillow.Position - player.Position).sqrMagnitude;
+                if (distance < hitDistance)
+                {
+                    hit = pillow;
+                }
+            }
+
+            return hit;
         }
 
         public class Factory : PlaceholderFactory<IPlayer, IPillowCarrier>{}
