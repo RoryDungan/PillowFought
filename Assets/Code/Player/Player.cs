@@ -9,6 +9,7 @@ namespace ElMoro.Player
         Vector3 Position { get; }
         Vector3 Forward { get; }
         Transform GrabTarget { get; }
+        LineRenderer ThrowLine { get; }
 
         int ControllerIndex { get; set; }
 
@@ -47,11 +48,13 @@ namespace ElMoro.Player
 
         private new Rigidbody rigidbody;
         private Transform grabTarget;
+        private LineRenderer throwLine;
         private PlayerAnimationController animController;
 
         public Vector3 Position => transform.position;
         public Vector3 Forward => transform.forward;
         public Transform GrabTarget => grabTarget;
+        public LineRenderer ThrowLine => throwLine;
         public int Layer => gameObject.layer;
 
         private PlayerState currentState;
@@ -67,10 +70,26 @@ namespace ElMoro.Player
                 throw new Exception("Player is missing Rigidbody component.");
             }
 
-            grabTarget = transform.Find("GrabTarget");
+			foreach(Transform child in transform) {
+				if (child.name == "GrabTarget") {
+					grabTarget = child;
+				}
+			}
+
             if (grabTarget == null)
             {
                 throw new Exception("PillowCarrier requires a child named GrabTarget but it could not be found!");
+            }
+
+			foreach(Transform child in transform) {
+				if (child.name == "ThrowLine") {
+					throwLine = child.GetComponent<LineRenderer>();
+				}
+			}
+
+            if (throwLine == null)
+            {
+                throw new Exception("Throw State requires a child named ThrowLine but it could not be found!");
             }
 
             animController = GetComponent<PlayerAnimationController>();

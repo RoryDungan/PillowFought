@@ -177,7 +177,7 @@ namespace ElMoro
                     throw new Exception("Collided with object with Pillow tag but no Pillow component!");
                 }
 
-                audioManager.Play("Hit Squeak");
+                audioManager.Play("Hit Thud");
                 otherPillow.Explode(particleBurstDirection);
                 Explode(particleBurstDirection);
             }
@@ -190,6 +190,7 @@ namespace ElMoro
                     throw new Exception("Collided with object with Player tag but no Player component!");
                 }
                 audioManager.Play("Hit Thud");
+                audioManager.Play("Hit Squeak");
                 Explode(particleBurstDirection);
                 player.Die();
             }
