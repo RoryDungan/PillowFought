@@ -226,7 +226,7 @@ namespace ElMoro
                     throw new Exception("Collided with object with Player tag but no Player component!");
                 }
                 audioManager.Play("Hit Thud");
-                audioManager.Play("Hit Squeak");
+                audioManager.Play("Hit Squeak", 0.3f);
                 Explode(particleBurstDirection);
                 player.Die();
             }
