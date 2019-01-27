@@ -36,7 +36,7 @@ namespace ElMoro
         /// </param>
         void Explode(Vector3 direction);
 
-        Vector3 Position { get; }
+        Vector3 Position { get; set; }
 
         void ToggleButtonPrompt(bool active);
     }
@@ -48,7 +48,11 @@ namespace ElMoro
 
         public const string PillowTag = "Pillow";
 
-        public Vector3 Position => transform.position;
+        public Vector3 Position
+        {
+            get => rigidbody.position;
+            set => rigidbody.position = value;
+        }
 
         public WindowSchematic trackableButtonPrompt;
         public GameObject TrackableButtonPromotObject { get; private set; }

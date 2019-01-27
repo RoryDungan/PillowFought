@@ -26,7 +26,7 @@ public class PillowSpawner : MonoBehaviour
 
 		spawnBounds = new Vector3[2];
 		spawnBounds[0] = GetComponent<Collider>().bounds.max;
-		spawnBounds[0] = GetComponent<Collider>().bounds.min;
+		spawnBounds[1] = GetComponent<Collider>().bounds.min;
 
 		pillows = new List<IPillow>();
 	}
@@ -52,8 +52,15 @@ public class PillowSpawner : MonoBehaviour
 		while (true) {
 			if (pillows.Count < pillowLimit) {
 				var newPillow = pillowFactory.Create(pillowPrefabs[Random.Range(0, pillowPrefabs.Length)]);
+                newPillow.Position = new Vector3(
+                    Random.Range(spawnBounds[0].x, spawnBounds[1].x),
+                    transform.position.y,
+                    Random.Range(spawnBounds[0].z, spawnBounds[1].z)
+                );
 				pillows.Add(newPillow);
+
 			}
+            yield return new WaitForSeconds(spawnRate);
 		}
 	}
 }
