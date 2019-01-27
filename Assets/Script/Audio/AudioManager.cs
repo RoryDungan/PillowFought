@@ -20,6 +20,13 @@ namespace ElMoro {
 		void Play(string audioName, Vector3 playPosition);
 
 		/// <summary>
+		/// Play audio after a delay
+		/// </summary>
+		/// <param name="audioName">Name of audio clip to be played</param>
+		/// <param name="delay">Delay in secondss</param>
+		void Play(string audioName, float delay);
+
+		/// <summary>
 		/// Stop currently playing audio (for music)
 		/// </summary>
 		/// <param name="audioName">Name of audio clip to be stopped</param>
@@ -81,6 +88,10 @@ namespace ElMoro {
 			Play(audioName, Vector3.zero);
 		}
 
+		public void Play(string audioName, float delay) {
+			StartCoroutine(DelayPlay(audioName, delay));
+		}
+
 		public void Play(string audioName, Vector3 playPosition) {
 			if (!audioLibrary.ContainsKey(audioName)) {
 				Debug.Log(gameObject.name + ": Requested audio clip does not exist.");
@@ -111,6 +122,11 @@ namespace ElMoro {
 			AudioSource curSource = curData.source;
 			
 			curSource.Stop();
+		}
+
+		private IEnumerator DelayPlay(string audioName, float delayTime) {
+			yield return new WaitForSeconds(delayTime);
+			Play(audioName);
 		}
 	}
 }

@@ -26,6 +26,9 @@ namespace ElMoro {
 
 		private PillowSpawner pillowSpawner;
 
+		[Inject]
+		private IAudioManager audioManager;
+
         public void RegisterSpawner(PlayerSpawner spawner)
         {
             playerSpawners.Add(spawner);
@@ -43,6 +46,7 @@ namespace ElMoro {
         [Inject]
         public void Setup(IGameManagerSettings gmSettings) {
             playerLives = new int[] {gmSettings.MaxLives, gmSettings.MaxLives};
+			audioManager.Play("BGM");
         }
 
         public void PlayerDefeated(int defeatedPlayerIndex) {
@@ -63,18 +67,17 @@ namespace ElMoro {
         private void EndRound() {
             // UI Hook: bring up round end UI
             // Needs to trigger ResetRound()
+			audioManager.Play("Round End");
         }
 
         public void ResetRound() {
-            // Input Manager Hook: Re-enable controls
-
             // Reset player parameters
             var players = GameObject.FindGameObjectsWithTag(Player.Player.PlayerTag);
             for (int playerIndex = 0; playerIndex < players.Length; playerIndex++) {
                 if (players[playerIndex]) {
                     UnityEngine.Object.Destroy(players[playerIndex].gameObject);
                 }
-                playerSpawners[playerIndex].SpawnPlayer();
+                // playerSpawners[playerIndex].SpawnPlayer();
             }
 
             // Destroy all pillows
@@ -84,11 +87,14 @@ namespace ElMoro {
             // }
 			pillowSpawner.StopSpawn();
 			pillowSpawner.DestroyPillows();
+
+			StartGame();
         }
 
         private void EndGame() {
             // UI Hook: Bring up end screen
             // Can either reset current scene or go to main menu
+			audioManager.Play("Cheer");
         }
 
         public void StartGame()
@@ -98,6 +104,8 @@ namespace ElMoro {
                 spawner.SpawnPlayer();
             }
 			pillowSpawner.StartSpawn();
+
+			audioManager.Play("Round Begin");
         }
     }
 }
