@@ -37,6 +37,8 @@ namespace ElMoro
         void Explode(Vector3 direction);
 
         Vector3 Position { get; }
+
+        void ToggleButtonPrompt(bool active);   
     }
 
     public class Pillow : MonoBehaviour, IPillow
@@ -47,6 +49,9 @@ namespace ElMoro
         public const string PillowTag = "Pillow";
 
         public Vector3 Position => transform.position;
+
+        public WindowSchematic trackableButtonPrompt;
+        public GameObject trackableButtonPromotObject;
 
         [Inject]
         private IPillowSettings pillowSettings;
@@ -77,6 +82,11 @@ namespace ElMoro
             {
                 throw new Exception("No explodeParticles assigned to pillow.");
             }
+        }
+
+        private void Start()
+        {
+            trackableButtonPromotObject = WindowCreator.instance.CreateTrackableWindow(trackableButtonPrompt, this.gameObject);
         }
 
         private IEnumerator SmoothLerpToPositionLocal(
@@ -119,6 +129,11 @@ namespace ElMoro
             }
             collider.enabled = true;
             yield return null;
+        }
+
+        public void ToggleButtonPrompt(bool active)
+        {
+            trackableButtonPromotObject.GetComponent<TrackableUIElement>().ToggleTracking(active);
         }
 
         public void Drop()
@@ -193,7 +208,7 @@ namespace ElMoro
                     throw new Exception("Collided with object with Pillow tag but no Pillow component!");
                 }
 
-                audioManager.Play("Hit Squeak");
+                audioManager.Play("Hit Thud");
                 otherPillow.Explode(particleBurstDirection);
                 Explode(particleBurstDirection);
             }
@@ -206,6 +221,7 @@ namespace ElMoro
                     throw new Exception("Collided with object with Player tag but no Player component!");
                 }
                 audioManager.Play("Hit Thud");
+                audioManager.Play("Hit Squeak");
                 Explode(particleBurstDirection);
                 player.Die();
             }

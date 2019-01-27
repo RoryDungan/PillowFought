@@ -44,9 +44,10 @@ public class TrackableUIElement : MonoBehaviour
 
     }
 
-    public void HideTracking()
+    public void ToggleTracking(bool active)
     {
-        isTracking = false;
-        contents.anchoredPosition = new Vector3(0, 5000, 0); // just get rid of the object
+        isTracking = active;
+        if(!active)
+            contents.anchoredPosition = new Vector3(0, 5000, 0); // just get rid of the object
     }
 }

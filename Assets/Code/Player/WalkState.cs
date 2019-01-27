@@ -24,6 +24,8 @@ namespace ElMoro.Player
             this.pillowCarryStateFactory = pillowCarryStateFactory;
         }
 
+        IPillow prevPillow;
+
         public override void FixedUpdate()
         {
             playerMovement.MovePlayer();
@@ -32,10 +34,21 @@ namespace ElMoro.Player
 
         public override void Update()
         {
+            var pillow = pillowCarrier.AttemptGrab();
+
+            if (prevPillow != null && prevPillow != pillow)
+            {
+                prevPillow.ToggleButtonPrompt(false);
+            }
+
+            if(pillow != null)
+            {
+                pillow.ToggleButtonPrompt(true);
+                prevPillow = pillow;
+            }
+
             if (inputManager.GetGrabButtonDown(player.ControllerIndex))
             {
-                var pillow = pillowCarrier.AttemptGrab();
-
                 // TODO: user factory
                 if (pillow != null)
                 {
@@ -43,6 +56,11 @@ namespace ElMoro.Player
                     player.SetState(pillowCarryStateFactory.Create(player, pillow));
                 }
             }
+        }
+
+        private void ScanForPillows()
+        {
+
         }
 
         public class Factory : PlaceholderFactory<IPlayer, WalkState>{}
