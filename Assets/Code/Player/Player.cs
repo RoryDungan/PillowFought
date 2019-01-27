@@ -10,7 +10,7 @@ namespace ElMoro.Player
         Vector3 Forward { get; }
         Transform GrabTarget { get; }
 
-        int ControllerIndex { get; }
+        int ControllerIndex { get; set; }
 
         void SetVelocity(Vector3 velocity);
 
@@ -39,7 +39,11 @@ namespace ElMoro.Player
         [Tooltip("Which controller should control this player.")]
         private int index;
 
-        public int ControllerIndex => index;
+        public int ControllerIndex
+        {
+            get => index;
+            set => index = value;
+        }
 
         private new Rigidbody rigidbody;
         private Transform grabTarget;
@@ -116,5 +120,7 @@ namespace ElMoro.Player
         {
             // TODO
         }
+
+        public class Factory : PlaceholderFactory<UnityEngine.Object, IPlayer>{};
     }
 }

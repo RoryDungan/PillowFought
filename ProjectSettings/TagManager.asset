@@ -8,6 +8,9 @@ TagManager:
   - ship
   - Pillow
   - Floor
+  - Wall
+  - Spawn1
+  - Spawn2
   layers:
   - Default
   - TransparentFX
