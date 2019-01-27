@@ -17,11 +17,14 @@ namespace ElMoro {
 
         void RegisterSpawner(PlayerSpawner spawner);
         void UnregisterSpawner(PlayerSpawner spawner);
+		void RegisterPillowSpawner(PillowSpawner pillowSpawn);
     }
 
     public class GameManager : IGameManager {
         private int[] playerLives;
         private IList<PlayerSpawner> playerSpawners = new List<PlayerSpawner>();
+
+		private PillowSpawner pillowSpawner;
 
         public void RegisterSpawner(PlayerSpawner spawner)
         {
@@ -32,6 +35,10 @@ namespace ElMoro {
         {
             playerSpawners.Remove(spawner);
         }
+
+		public void RegisterPillowSpawner(PillowSpawner pillowSpawn) {
+			pillowSpawner = pillowSpawn;
+		}
 
         [Inject]
         public void Setup(IGameManagerSettings gmSettings) {
@@ -71,10 +78,12 @@ namespace ElMoro {
             }
 
             // Destroy all pillows
-            var pillows = GameObject.FindGameObjectsWithTag(Pillow.PillowTag);
-            for (int pillowIndex = 0; pillowIndex < pillows.Length; pillowIndex++) {
-                UnityEngine.Object.Destroy(pillows[pillowIndex]);
-            }
+            // var pillows = GameObject.FindGameObjectsWithTag(Pillow.PillowTag);
+            // for (int pillowIndex = 0; pillowIndex < pillows.Length; pillowIndex++) {
+            //     UnityEngine.Object.Destroy(pillows[pillowIndex]);
+            // }
+			pillowSpawner.StopSpawn();
+			pillowSpawner.DestroyPillows();
         }
 
         private void EndGame() {
@@ -88,6 +97,7 @@ namespace ElMoro {
             {
                 spawner.SpawnPlayer();
             }
+			pillowSpawner.StartSpawn();
         }
     }
 }
