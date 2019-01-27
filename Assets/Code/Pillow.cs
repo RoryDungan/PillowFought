@@ -31,7 +31,10 @@ namespace ElMoro
         /// <summary>
         /// Explode this pillow in a burst of feathers.
         /// </summary>
-        void Explode();
+        /// <param name="direction">
+        /// The direction the featherparticles should shoot out in.
+        /// </param>
+        void Explode(Vector3 direction);
 
         Vector3 Position { get; }
     }
@@ -46,10 +49,12 @@ namespace ElMoro
         public Vector3 Position => transform.position;
 
         [Inject]
-        private IPillowSettings PillowSettings { get; set; }
+        private IPillowSettings pillowSettings;
 
         [Inject]
         private IAudioManager audioManager;
+
+        private bool deadly = false;
 
         private void Awake()
         {
@@ -121,24 +126,48 @@ namespace ElMoro
             StartCoroutine(SmoothLerpToPositionLocal(
                 Vector3.zero,
                 Quaternion.identity,
-                PillowSettings.GrabAnimDuration
+                pillowSettings.GrabAnimDuration
             ));
         }
 
         public void Throw(Vector3 direction, LayerMask layer)
         {
             Drop();
+            deadly = true;
             rigidbody.AddForce(direction, ForceMode.Impulse);
             gameObject.layer = layer;
         }
 
-        public void Explode()
+        public void Explode(Vector3 direction)
         {
-            Debug.Log("TODO: pillow explode");
+            var featherParticles = Instantiate(
+                pillowSettings.FeatherPuff,
+                transform.position,
+                Quaternion.identity
+            );
+            featherParticles.transform.rotation =
+                Quaternion.LookRotation(direction, Vector3.up);
+            Destroy(featherParticles, pillowSettings.FeatherPuffDuration);
+            Destroy(gameObject);
+        }
+
+        private bool IsDeadly()
+        {
+            return deadly;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (!IsDeadly())
+            {
+                audioManager.Play("Hit Thud");
+                return;
+            }
+
+            deadly = false;
+
+            var particleBurstDirection = rigidbody.velocity.normalized;
+
             var otherCollider = collision.collider;
             if (otherCollider.CompareTag(PillowTag))
             {
@@ -149,7 +178,8 @@ namespace ElMoro
                 }
 
                 audioManager.Play("Hit Squeak");
-                otherPillow.Explode();
+                otherPillow.Explode(particleBurstDirection);
+                Explode(particleBurstDirection);
             }
 
             if (otherCollider.CompareTag(Player.Player.PlayerTag))
@@ -160,10 +190,9 @@ namespace ElMoro
                     throw new Exception("Collided with object with Player tag but no Player component!");
                 }
                 audioManager.Play("Hit Thud");
+                Explode(particleBurstDirection);
                 player.Die();
             }
-
-            Explode();
         }
     }
 }
