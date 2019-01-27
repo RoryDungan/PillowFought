@@ -54,6 +54,9 @@ namespace ElMoro
         [Inject]
         private IAudioManager audioManager;
 
+        [SerializeField]
+        private ParticleSystem explodeParticles;
+
         private bool deadly = false;
 
         private void Awake()
@@ -68,6 +71,11 @@ namespace ElMoro
             if (collider == null)
             {
                 throw new Exception("Could not find Collider component on Pillow.");
+            }
+
+            if (explodeParticles == null)
+            {
+                throw new Exception("No explodeParticles assigned to pillow.");
             }
         }
 
@@ -140,14 +148,22 @@ namespace ElMoro
 
         public void Explode(Vector3 direction)
         {
+            var particleRotation = Quaternion.LookRotation(direction, Vector3.up);
+
             var featherParticles = Instantiate(
                 pillowSettings.FeatherPuff,
                 transform.position,
-                Quaternion.identity
+                particleRotation
             );
-            featherParticles.transform.rotation =
-                Quaternion.LookRotation(direction, Vector3.up);
+
+            var pillowParticles = Instantiate(
+                explodeParticles,
+                transform.position,
+                particleRotation
+            );
+
             Destroy(featherParticles, pillowSettings.FeatherPuffDuration);
+            Destroy(pillowParticles, pillowSettings.FeatherPuffDuration);
             Destroy(gameObject);
         }
 
