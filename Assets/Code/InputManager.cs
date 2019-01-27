@@ -49,14 +49,14 @@ namespace ElMoro
 
     public class InputManager : IInputManager
     {
-        const string Player0HorizontalAxis = "Horizontal 0";
-        const string Player0VerticalAxis = "Vertical 0";
-        const string Player0Grab = "B 0";
-        const string Player0Throw = "A 0";
-        const string Player1HorizontalAxis = "Horizontal 1";
-        const string Player1VerticalAxis = "Vertical 1";
-        const string Player1Grab = "B 1";
-        const string Player1Throw = "A 1";
+        public const string Player0HorizontalAxis = "Horizontal 0";
+        public const string Player0VerticalAxis = "Vertical 0";
+        public const string Player0Grab = "B 0";
+        public const string Player0Throw = "A 0";
+        public const string Player1HorizontalAxis = "Horizontal 1";
+        public const string Player1VerticalAxis = "Vertical 1";
+        public const string Player1Grab = "B 1";
+        public const string Player1Throw = "A 1";
 
         public Vector2 GetMovementDirection(int playerIndex)
         {

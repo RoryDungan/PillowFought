@@ -12,9 +12,6 @@ public class StartMenuLogic : MonoBehaviour
     private UnityAction playEvent;
     private UnityAction exitEvent;
 
-    [Inject]
-    private IInputManager inputManager;
-
     /// <summary>
     /// set up the events for this function
     /// </summary>
@@ -31,14 +28,18 @@ public class StartMenuLogic : MonoBehaviour
 
     private void Update()
     {
-        // if (inputManager.GetGrabButtonDown(0))
-        // {
-        //     playEvent.Invoke();
-        // }
-        // else if (inputManager.GetThrowButtonDown(0))
-        // {
-        //     exitEvent.Invoke();
-        // }	
+        if (Input.GetButtonDown(InputManager.Player0Throw)
+            || Input.GetButtonDown(InputManager.Player1Throw)
+            || Input.GetKeyDown(KeyCode.F))
+        {
+            playEvent.Invoke();
+        }
+        if (Input.GetButtonDown(InputManager.Player0Grab)
+            || Input.GetButtonDown(InputManager.Player1Grab)
+            || Input.GetKeyDown(KeyCode.Space))
+        {
+            exitEvent.Invoke();
+        }
     }
 
 }
