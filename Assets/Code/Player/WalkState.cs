@@ -39,8 +39,8 @@ namespace ElMoro.Player
                 // TODO: user factory
                 if (pillow != null)
                 {
-                    player.SetState(pillowCarryStateFactory.Create(player, pillow));
                     player.SetPickupAnim();
+                    player.SetState(pillowCarryStateFactory.Create(player, pillow));
                 }
             }
         }
