@@ -388,6 +388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   index: 0
+  dieParticles: {fileID: 640072052846525675, guid: e32cc99f7511b4ecc87f173f5c12f3fb,
+    type: 3}
 --- !u!1001 &3119141032258142908
 PrefabInstance:
   m_ObjectHideFlags: 0

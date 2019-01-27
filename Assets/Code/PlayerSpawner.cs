@@ -39,6 +39,7 @@ namespace ElMoro
         {
             var newPlayer = playerFactory.Create(playerPrefab);	
             newPlayer.ControllerIndex = playerIndex;
+            newPlayer.Position = transform.position;
         }
     }
 }
