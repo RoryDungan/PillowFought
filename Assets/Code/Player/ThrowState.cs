@@ -33,6 +33,7 @@ namespace ElMoro.Player
 
         public override void Start()
         {
+			player.ThrowLine.enabled = true;
             startTime = Time.time;
         }
 
@@ -41,8 +42,28 @@ namespace ElMoro.Player
             playerMovement.FaceDirectionOfMovement();
         }
 
+		private float throwForce;
+
         public override void Update()
         {
+            var chargeAmount = Mathf.Clamp01(
+                (Time.time - startTime) / playerSettings.ThrowChargeDuration
+            );
+
+			throwForce = playerSettings.MinThrowForce + (playerSettings.MaxThrowForce
+			- playerSettings.MinThrowForce) * chargeAmount;
+
+			RaycastHit hit;
+			float distDown = 0;
+			if (Physics.Raycast(player.GrabTarget.position, Vector3.down, out hit)) {
+				distDown = hit.distance;
+			}
+
+			float forwardDelta = throwForce * Mathf.Sqrt(Mathf.Abs((2 * distDown) / Physics.gravity.y));
+
+			player.ThrowLine.SetPosition(0, player.GrabTarget.position);
+			player.ThrowLine.SetPosition(1, player.Position + player.Forward * forwardDelta + Vector3.down * hit.distance);
+
             if (!inputManager.GetThrowButton(player.ControllerIndex))
             {
                 Throw();
@@ -52,15 +73,8 @@ namespace ElMoro.Player
 
         private void Throw()
         {
-            var chargeAmount = Mathf.Clamp01(
-                (Time.time - startTime) / playerSettings.ThrowChargeDuration
-            );
-
-            var throwForce = playerSettings.MinThrowForce
-                + (playerSettings.MaxThrowForce - playerSettings.MinThrowForce)
-                    * chargeAmount;
-
             pillow.Throw(player.Forward * throwForce, player.Layer);
+			player.ThrowLine.enabled = false;
         }
 
         public class Factory : PlaceholderFactory<IPlayer, IPillow, ThrowState>{}
