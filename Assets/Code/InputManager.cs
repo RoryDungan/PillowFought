@@ -39,6 +39,12 @@ namespace ElMoro
         /// specified player index.
         /// </summary>
         bool GetThrowButtonUp(int playerIndex);
+
+        /// <summary>
+        /// Returns whether the throw button is currently pressed for the
+        /// specified player index.
+        /// </summary>
+        bool GetThrowButton(int playerIndex);
     }
 
     public class InputManager : IInputManager
@@ -143,6 +149,21 @@ namespace ElMoro
 
                 case 1:
                     return Input.GetButtonUp(Player1Throw);
+
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(playerIndex));
+            }
+        }
+
+        public bool GetThrowButton(int playerIndex)
+        {
+            switch (playerIndex)
+            {
+                case 0:
+                    return Input.GetButton(Player0Throw) || Input.GetKey(KeyCode.F);
+
+                case 1:
+                    return Input.GetButton(Player1Throw);
 
                 default:
                     throw new ArgumentOutOfRangeException(nameof(playerIndex));
