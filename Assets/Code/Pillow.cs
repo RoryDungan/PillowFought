@@ -46,10 +46,12 @@ namespace ElMoro
         public Vector3 Position => transform.position;
 
         [Inject]
-        private IPillowSettings PillowSettings { get; set; }
+        private IPillowSettings pillowSettings;
 
         [Inject]
         private IAudioManager audioManager;
+
+        private bool deadly = false;
 
         private void Awake()
         {
@@ -121,29 +123,43 @@ namespace ElMoro
             StartCoroutine(SmoothLerpToPositionLocal(
                 Vector3.zero,
                 Quaternion.identity,
-                PillowSettings.GrabAnimDuration
+                pillowSettings.GrabAnimDuration
             ));
         }
 
         public void Throw(Vector3 direction, LayerMask layer)
         {
             Drop();
+            deadly = true;
             rigidbody.AddForce(direction, ForceMode.Impulse);
             gameObject.layer = layer;
         }
 
         public void Explode()
         {
-            Debug.Log("TODO: pillow explode");
             Instantiate(
-                PillowSettings.FeatherPuff,
+                pillowSettings.FeatherPuff,
                 transform.position,
                 Quaternion.identity
             );
+            Destroy(gameObject);
+        }
+
+        private bool IsDeadly()
+        {
+            return deadly;
         }
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (!IsDeadly())
+            {
+                audioManager.Play("Hit Thud");
+                return;
+            }
+
+            deadly = false;
+
             var otherCollider = collision.collider;
             if (otherCollider.CompareTag(PillowTag))
             {
