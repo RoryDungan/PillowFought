@@ -154,6 +154,7 @@ namespace ElMoro
                 Quaternion.identity,
                 pillowSettings.GrabAnimDuration
             ));
+			audioManager.Play("Pickup");
         }
 
         public void Throw(Vector3 direction, LayerMask layer)
@@ -162,6 +163,7 @@ namespace ElMoro
             deadly = true;
             rigidbody.AddForce(direction, ForceMode.Impulse);
             gameObject.layer = layer;
+			audioManager.Play("Pickup");
         }
 
         public void Explode(Vector3 direction)
