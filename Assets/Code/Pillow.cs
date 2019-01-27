@@ -167,7 +167,7 @@ namespace ElMoro
             deadly = true;
             rigidbody.AddForce(direction, ForceMode.Impulse);
             gameObject.layer = layer;
-			audioManager.Play("Pickup");
+			audioManager.Play("Throw");
         }
 
         public void Explode(Vector3 direction)

@@ -28,7 +28,7 @@ MonoBehaviour:
     mixerGroup: {fileID: 243546348656592770, guid: ed87da0992b63074b9efd5aa5d401483,
       type: 2}
     source: {fileID: 0}
-    volRange: {x: 1, y: 1}
+    volRange: {x: 0.3, y: 0.3}
     pitchRange: {x: 0.95, y: 1.05}
     spatialBlend: 1
     isLooping: 0
