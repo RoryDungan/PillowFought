@@ -37,6 +37,8 @@ namespace ElMoro
         void Explode(Vector3 direction);
 
         Vector3 Position { get; }
+
+        void ToggleButtonPrompt(bool active);   
     }
 
     public class Pillow : MonoBehaviour, IPillow
@@ -47,6 +49,9 @@ namespace ElMoro
         private const string PillowTag = "Pillow";
 
         public Vector3 Position => transform.position;
+
+        public WindowSchematic trackableButtonPrompt;
+        public GameObject trackableButtonPromotObject;
 
         [Inject]
         private IPillowSettings pillowSettings;
@@ -69,6 +74,11 @@ namespace ElMoro
             {
                 throw new Exception("Could not find Collider component on Pillow.");
             }
+        }
+
+        private void Start()
+        {
+            trackableButtonPromotObject = WindowCreator.instance.CreateTrackableWindow(trackableButtonPrompt, this.gameObject);
         }
 
         private IEnumerator SmoothLerpToPositionLocal(
@@ -111,6 +121,11 @@ namespace ElMoro
             }
             collider.enabled = true;
             yield return null;
+        }
+
+        public void ToggleButtonPrompt(bool active)
+        {
+            trackableButtonPromotObject.GetComponent<TrackableUIElement>().ToggleTracking(active);
         }
 
         public void Drop()
