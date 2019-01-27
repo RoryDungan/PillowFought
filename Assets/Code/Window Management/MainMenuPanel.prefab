@@ -495,6 +495,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playButton: {fileID: 8679908275149672969}
   exitButton: {fileID: 2132969951553144243}
+  scoreKeeperScheme: {fileID: 11400000, guid: a002f89bf4b7b4fa3a7ba24dbae31b90, type: 2}
 --- !u!1 &4319157513900284921
 GameObject:
   m_ObjectHideFlags: 0
