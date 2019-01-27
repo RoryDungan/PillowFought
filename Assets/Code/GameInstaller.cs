@@ -53,6 +53,9 @@ namespace ElMoro
             Container.BindFactory<IPlayer, WalkState, WalkState.Factory>();
             Container.BindFactory<IPlayer, IPillow, PillowCarryState, PillowCarryState.Factory>();
             Container.BindFactory<IPlayer, IPillow, ThrowState, ThrowState.Factory>();
+            Container.BindFactory<UnityEngine.Object, IPlayer, Player.Player.Factory>()
+                .To<Player.Player>()
+                .FromFactory<PrefabFactory<Player.Player>>();
         }
     }
 }
